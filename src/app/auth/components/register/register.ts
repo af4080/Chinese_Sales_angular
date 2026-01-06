@@ -12,11 +12,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
   imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
+  providers: [MessageService]
 })
 export class Register {
 
 
-   // messageService = inject(MessageService);
+    messageService = inject(MessageService);
 
     fb = inject(FormBuilder);
 
@@ -30,7 +31,7 @@ export class Register {
     onSubmit() {
         this.formSubmitted = true;
         if (this.registerForm.valid) {
-          //  this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
             this.registerForm.reset();
             this.formSubmitted = false;
         }
