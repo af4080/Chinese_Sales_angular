@@ -1,17 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GiftService } from './gift.service'; 
+import { Auth } from './auth.serviece';
 
-describe('GiftService', () => {
-  let service: GiftService;
+describe('Auth', () => {
+  let service: Auth;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GiftService);
+    service = TestBed.inject(Auth);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 });
-
