@@ -7,6 +7,8 @@ import { ToastModule } from "primeng/toast";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Password, PasswordModule } from "primeng/password";
 import { InputMask } from "primeng/inputmask";
+import { AuthService } from "../../servieces/auth.serviece";
+import { CreateUser } from "../../models/user-create.model";
 
 
 @Component({
@@ -17,7 +19,7 @@ import { InputMask } from "primeng/inputmask";
         ToastModule,
         MessageModule,
         PasswordModule,
-        InputMask],
+       InputMask],
     templateUrl: './register.html',
     styleUrl: './register.scss',
     providers: [MessageService]
@@ -27,13 +29,15 @@ export class Register {
 
     messageService = inject(MessageService);
 
+    authService = inject(AuthService)
+
     fb = inject(FormBuilder);
 
     formSubmitted = false;
 
 
     registerForm = this.fb.group({
-        username: ['', Validators.required],
+        name: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15),
         Validators.pattern('.*[A-Z].*'),
@@ -44,11 +48,27 @@ export class Register {
     });
 
     onSubmit() {
+        console.log("submit");
+        
         this.formSubmitted = true;
         if (this.registerForm.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
-            this.registerForm.reset();
-            this.formSubmitted = false;
+            const newUser : CreateUser = {
+                name: this.registerForm.value.name ?? '',
+                email: this.registerForm.value.email ?? '',
+                password: this.registerForm.value.password ?? '',
+                phone: this.registerForm.value.phone ?? ''
+            }
+            this.authService.register(newUser).subscribe({
+                next: () => {
+                    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+                    this.registerForm.reset();
+                    this.formSubmitted = false;
+                },
+                error: (error) => {
+                    console.log(error);
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message ??  'Form Submission Failed', life: 3000 });
+                }
+            });
         }
     }
 

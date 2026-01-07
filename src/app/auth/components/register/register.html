@@ -2,10 +2,10 @@
 
 <div class="card flex justify-center">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-       <!-- username -->
+       <!-- name -->
         <div class="flex flex-col gap-1">
-            <input pInputText type="text" id="username" placeholder="Username" formControlName="username"
-                [invalid]="isInvalid('username')" />
+            <input pInputText type="text" id="name" placeholder="name" formControlName="name"
+                [invalid]="isInvalid('name')" />
             @if (isInvalid('username')) {
             <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
             }
