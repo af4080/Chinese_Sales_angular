@@ -1,5 +1,5 @@
 // login.dto.interface.ts
-export interface Login {
+export interface LoginUser {
   email: string;
   password: string;
 }

@@ -9,6 +9,8 @@ import { InputText } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
+import { AuthService } from '../../servieces/auth.serviece';
+import {  LoginUser } from '../../models/user-login.model';
 
 @Component({
   selector: 'app-login',
@@ -27,12 +29,17 @@ import { ToastModule } from 'primeng/toast';
 export class Login {
  
     messageService = inject(MessageService);
-
+    
     fb = inject(FormBuilder);
+    authService = inject(AuthService);
 
     loginForm: FormGroup = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]]
+        password: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15),
+        Validators.pattern('.*[A-Z].*'),
+        Validators.pattern('.*[a-z].*'),   
+        Validators.pattern('.*[0-9].*'),   
+        ]],
     });
 
     formSubmitted = false;
@@ -40,10 +47,20 @@ export class Login {
     onSubmit() {
         this.formSubmitted = true;
         if (this.loginForm.valid) {
-            // אפשר להוסיף כאן קוד לשליחת נתונים לשרת או לפעולה אחרת
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful', life: 3000 });
-            this.loginForm.reset();
-            this.formSubmitted = false;
+            const loginData : LoginUser = this.loginForm.value;
+            this.authService.login(loginData).subscribe({
+                next: (response) => {
+                    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful', life: 3000 });
+                    this.loginForm.reset();
+                    this.formSubmitted = false;
+                    console.log(response.token);
+                    
+                },
+                error: (error) => {
+                    console.log(error);
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message ??  'Login failed', life: 3000 });
+                }
+            });
         } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill in all fields correctly.', life: 3000 });
         }

@@ -21,7 +21,10 @@
             @if (registerForm.get('email')?.errors?.['email']) {
             <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
             }
+            @if (registerForm.get('email')?.errors?.['maxlength']) {
+            <p-message severity="error" size="small" variant="simple">Email must be at most 50 characters long.</p-message>
             }
+        }
         </div>
         <!-- password -->
         <div class="flex flex-col gap-1">

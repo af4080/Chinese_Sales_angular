@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { Login } from '../models/user-login.model';
+import {  LoginUser } from '../models/user-login.model';
 import { CreateUser } from '../models/user-create.model';
 import { environment } from '../../../enviorments/enviorment';
 
@@ -16,7 +16,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(login: Login): Observable<{token: string}> {
+  login(login: LoginUser): Observable<{token: string}> {
     return this.http.post<{token: string}>(`${this.apiUrl}/login`, login).pipe(
       tap(response => {
           if (response.token) {

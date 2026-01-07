@@ -37,8 +37,8 @@ export class Register {
 
 
     registerForm = this.fb.group({
-        name: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
+        name: ['', [Validators.required,Validators.maxLength(50)]],
+        email: ['', [Validators.required, Validators.email,Validators.maxLength(50)]],
         password: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15),
         Validators.pattern('.*[A-Z].*'),
         Validators.pattern('.*[a-z].*'),   
@@ -46,8 +46,7 @@ export class Register {
         ]],
         phone: ['', Validators.required],
     });
-
-    onSubmit() {
+onSubmit() {
         console.log("submit");
         
         this.formSubmitted = true;
@@ -59,14 +58,16 @@ export class Register {
                 phone: this.registerForm.value.phone ?? ''
             }
             this.authService.register(newUser).subscribe({
-                next: () => {
+                next: (response) => {
                     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
                     this.registerForm.reset();
                     this.formSubmitted = false;
+                    console.log(response);
                 },
                 error: (error) => {
                     console.log(error);
                     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message ??  'Form Submission Failed', life: 3000 });
+                    
                 }
             });
         }
