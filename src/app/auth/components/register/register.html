@@ -1,62 +1,59 @@
 <p-toast />
 
-<div class="card flex justify-center">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-       <!-- name -->
-        <div class="flex flex-col gap-1">
-            <input pInputText type="text" id="name" placeholder="name" formControlName="name"
-                [invalid]="isInvalid('name')" />
-            @if (isInvalid('username')) {
-            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-            }
-        </div>
-         <!-- emeil -->
-        <div class="flex flex-col gap-1">
-            <input pInputText type="email" id="email" placeholder="Email" formControlName="email"
-                [invalid]="isInvalid('email')" />
-            @if (isInvalid('email')) {
-            @if (registerForm.get('email')?.errors?.['required']) {
-            <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
-            }
-            @if (registerForm.get('email')?.errors?.['email']) {
-            <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
-            }
-            @if (registerForm.get('email')?.errors?.['maxlength']) {
-            <p-message severity="error" size="small" variant="simple">Email must be at most 50 characters long.</p-message>
-            }
-        }
-        </div>
-        <!-- password -->
-        <div class="flex flex-col gap-1">
-            <p-password id="password" formControlName="password" [toggleMask]="true" [invalid]="isInvalid('password')"
-                placeholder="Password" feedback="false"></p-password>
-            @if (isInvalid('password'))
-            {
-                @if (registerForm.get('password')?.errors?.['required']) {
-                    <p-message severity="error" size="small" variant="simple">Password is
-                    required.</p-message>
-                }
-                @if (registerForm.get('password')?.errors?.['minlength'] || registerForm.get('password')?.errors?.['maxlength'] ) {
-                <p-message severity="error" size="small" variant="simple">The password must be between 7-15</p-message>
-                }
-                @if (registerForm.get('password')?.errors?.['pattern']  ) {
-                <p-message severity="error" size="small" variant="simple">Please enter at least one uppercase letter, one lowercase letter, and one number.</p-message>
-                }
-            }
+<div class="ze-ze-wrapper">
+    <div class="ze-ze-header">
+        <div class="logo-placeholder">זה לזה</div> <h2 class="main-title">יצירת חשבון חדש</h2>
+        <div class="gold-line"></div>
+    </div>
 
-        </div>
-        <!-- phone -->
-        <div class="flex flex-col gap-1">
-            <p-inputMask mask="999-9999999" id="phone" formControlName="phone" [invalid]="isInvalid('phone')"
-                placeholder="Phone Number"></p-inputMask>
-            @if (isInvalid('phone'))
-            {
-            <p-message severity="error" size="small" variant="simple">Phone number is
-                required.</p-message>
-            }
+    <div class="ze-ze-card">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="ze-ze-form">
+            
+            <div class="form-group">
+                <label>שם מלא</label>
+                <input pInputText type="text" formControlName="name" placeholder="name" [invalid]="isInvalid('name')" />
+                @if (isInvalid('name')) {
+                    <p-message severity="error" size="small" variant="simple">שם הוא שדה חובה</p-message>
+                }
+            </div>
 
-        </div>
+            <div class="form-group">
+                <label>כתובת אימייל</label>
+                <input pInputText type="email" formControlName="email" placeholder="Email" [invalid]="isInvalid('email')" />
+                @if (isInvalid('email')) {
+                    @if (registerForm.get('email')?.errors?.['required']) {
+                        <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+                    }
+                    @if (registerForm.get('email')?.errors?.['email']) {
+                        <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+                    }
+                }
+            </div>
 
-        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-    </form>
+            <div class="form-group">
+                <label>סיסמה</label>
+                <p-password formControlName="password" [toggleMask]="true" [invalid]="isInvalid('password')" placeholder="Password" [feedback]="false"></p-password>
+                @if (isInvalid('password')) {
+                    @if (registerForm.get('password')?.errors?.['required']) {
+                        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+                    }
+                    @if (registerForm.get('password')?.errors?.['minlength']) {
+                        <p-message severity="error" size="small" variant="simple">The password must be between 7-15</p-message>
+                    }
+                }
+            </div>
+
+            <div class="form-group">
+                <label>מספר טלפון</label>
+                <p-inputMask mask="999-9999999" formControlName="phone" [invalid]="isInvalid('phone')" placeholder="Phone Number"></p-inputMask>
+                @if (isInvalid('phone')) {
+                    <p-message severity="error" size="small" variant="simple">Phone number is required.</p-message>
+                }
+            </div>
+
+            <button pButton type="submit" class="ze-ze-submit">
+                <span class="w-full text-center">Submit</span>
+            </button>
+        </form>
+    </div>
 </div>

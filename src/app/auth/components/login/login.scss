@@ -1,0 +1,103 @@
+/* צבעים ברוח הארגון */
+$ze-purple: #7e2a52; 
+$ze-gold: #d48d5e;
+
+.ze-ze-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #ffffff;
+    direction: rtl;
+}
+
+.ze-ze-header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    .logo-text {
+        font-size: 3.5rem;
+        font-weight: bold;
+        color: $ze-purple;
+        letter-spacing: -2px;
+        line-height: 1;
+    }
+
+    .main-title {
+        font-size: 1.8rem;
+        color: #333;
+        margin-top: 0.5rem;
+        font-weight: 500;
+    }
+
+    .gold-line {
+        height: 5px;
+        width: 70px;
+        background-color: $ze-gold;
+        margin: 12px auto;
+        border-radius: 10px;
+    }
+}
+
+.ze-ze-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    border-top: 6px solid $ze-purple;
+}
+
+.ze-ze-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+        font-weight: bold;
+        color: $ze-purple;
+        font-size: 0.9rem;
+    }
+
+    input {
+        width: 100%;
+        border-radius: 8px !important;
+        border: 1px solid #e0e0e0;
+        padding: 12px;
+        
+        &:focus {
+            border-color: $ze-purple !important;
+            box-shadow: 0 0 0 2px rgba(126, 42, 82, 0.1) !important;
+        }
+    }
+}
+
+::ng-deep {
+    .p-password, .p-password input {
+        width: 100% !important;
+    }
+
+    .p-button.ze-ze-submit {
+        background-color: $ze-purple !important;
+        border: none !important;
+        padding: 12px !important;
+        border-radius: 10px !important;
+        margin-top: 0.5rem;
+        
+        &:hover {
+            background-color: darken($ze-purple, 5%) !important;
+        }
+    }
+
+    .p-message {
+        margin-top: 4px;
+    }
+}

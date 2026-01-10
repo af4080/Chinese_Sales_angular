@@ -5,12 +5,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MessageService } from 'primeng/api'; // לשימוש בניווט לאחר התחברות
 import { ButtonModule } from 'primeng/button';
 import { InputMask } from 'primeng/inputmask';
-import { InputText } from 'primeng/inputtext';
+import { InputText, InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../../servieces/auth.serviece';
 import {  LoginUser } from '../../models/user-login.model';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,10 @@ import {  LoginUser } from '../../models/user-login.model';
         PasswordModule,
        InputMask,
        CommonModule,
-      InputText],
+      InputText,
+    CardModule,
+    CommonModule,
+    InputTextModule],   
   templateUrl: './login.html',
   styleUrl: './login.scss',
   providers:[MessageService]
