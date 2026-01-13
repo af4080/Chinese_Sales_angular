@@ -14,7 +14,11 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
       providePrimeNG({
-            theme: { preset: Aura}
+            theme: { preset: Aura,
+              options: {
+                darkModeSelector: false// מומלץ לכבות אם אתה רוצה שליטה מלאה על הצבעים
+            }
+            }
         })
   ]
 };

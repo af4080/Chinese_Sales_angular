@@ -9,6 +9,7 @@ import { Password, PasswordModule } from "primeng/password";
 import { InputMask } from "primeng/inputmask";
 import { AuthService } from "../../servieces/auth.serviece";
 import { CreateUser } from "../../models/user-create.model";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -34,6 +35,7 @@ export class Register {
     fb = inject(FormBuilder);
 
     formSubmitted = false;
+    route = inject(Router);
 
 
     registerForm = this.fb.group({
@@ -62,6 +64,7 @@ onSubmit() {
                     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
                     this.registerForm.reset();
                     this.formSubmitted = false;
+                    this.route.navigate(['/login']);
                     console.log(response);
                 },
                 error: (error) => {

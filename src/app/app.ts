@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { Register } from './auth/components/register/register';
+import { Menu } from './shared/components/menu/menu';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,RouterModule],
+  imports: [RouterOutlet,RouterModule,Menu],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']
 })

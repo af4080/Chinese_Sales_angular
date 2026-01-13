@@ -1,40 +1,58 @@
+<p-toast />
 
-<p-toast/>
+<div class="ze-ze-wrapper">
+    <div class="ze-ze-header">
+        <div class="logo-text">זה לזה</div>
+        <h2 class="main-title">כניסה למערכת</h2>
+        <div class="gold-line"></div>
+    </div>
 
-<div class="card flex justify-center">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-        <!-- Email -->
-        <div class="flex flex-col gap-4">
-            <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
-         @if (isInvalid('email')) {
-            @if (loginForm.get('email')?.errors?.['required']) {
-            <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
-            }
-            @if (loginForm.get('email')?.errors?.['email']) {
-            <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
-            }
-            }
-        </div>
-
-        <!-- Password -->
-        <div class="flex flex-col gap-4">
-            <p-password id="password" placeholder="Password" formControlName="password" [toggleMask]="true" [invalid]="isInvalid('password')" feedback="false"></p-password>
-            @if (isInvalid('password'))
-            {
-                @if (loginForm.get('password')?.errors?.['required']) {
-                    <p-message severity="error" size="small" variant="simple">Password is
-                    required.</p-message>
+    <div class="ze-ze-card">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="ze-ze-form">
+            
+            <div class="form-group">
+                <label for="email">כתובת אימייל</label>
+                <input pInputText type="email" id="email" 
+                       placeholder="דוא''ל" 
+                       formControlName="email" 
+                       [invalid]="isInvalid('email')" />
+                
+                @if (isInvalid('email')) {
+                    @if (loginForm.get('email')?.errors?.['required']) {
+                        <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+                    }
+                    @if (loginForm.get('email')?.errors?.['email']) {
+                        <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+                    }
                 }
-                @if (loginForm.get('password')?.errors?.['minlength'] || loginForm.get('password')?.errors?.['maxlength'] ) {
-                <p-message severity="error" size="small" variant="simple">The password must be between 7-15</p-message>
-                }
-                @if (loginForm.get('password')?.errors?.['pattern']  ) {
-                <p-message severity="error" size="small" variant="simple">Please enter at least one uppercase letter, one lowercase letter, and one number.</p-message>
-                }
-            }
-        </div>
+            </div>
 
-        <button pButton severity="secondary" type="submit"><span pButtonLabel>Login</span></button>
-    </form>
+            <div class="form-group">
+                <label for="password">סיסמה</label>
+                <p-password id="password" 
+                            placeholder="Password" 
+                            formControlName="password" 
+                            [toggleMask]="true" 
+                            [invalid]="isInvalid('password')" 
+                            [feedback]="false">
+                </p-password>
+                
+                @if (isInvalid('password')) {
+                    @if (loginForm.get('password')?.errors?.['required']) {
+                        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+                    }
+                    @if (loginForm.get('password')?.errors?.['minlength'] || loginForm.get('password')?.errors?.['maxlength']) {
+                        <p-message severity="error" size="small" variant="simple">The password must be between 7-15</p-message>
+                    }
+                    @if (loginForm.get('password')?.errors?.['pattern']) {
+                        <p-message severity="error" size="small" variant="simple">Please enter at least one uppercase letter, one lowercase letter, and one number.</p-message>
+                    }
+                }
+            </div>
+
+            <button pButton type="submit" class="ze-ze-submit">
+                <span class="w-full text-center">Login</span>
+            </button>
+        </form>
+    </div>
 </div>
-
