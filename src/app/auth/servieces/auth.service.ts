@@ -29,7 +29,7 @@ export class AuthService {
 
           localStorage.setItem(this.tokenkey, response.token);
           this.loggedInSubject.next(true);
-          this.roleSubject.next(this.decodeToken().role || null);
+          this.roleSubject.next(this.decodeToken()?.role || null);
           
         }
       })

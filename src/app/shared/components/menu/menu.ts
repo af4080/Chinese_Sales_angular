@@ -47,8 +47,8 @@ export class Menu implements OnInit {
         label: 'ניהול',
         icon: 'pi pi-slack',
         items: [
-          { label: 'מתנות', icon: 'pi pi-gift' },
-          { label: 'תורמים', icon: 'pi pi-building-columns' },
+          { label: 'מתנות', icon: 'pi pi-gift' ,command: () => this.router.navigate(['/management/gift'])},
+          { label: 'תורמים', icon: 'pi pi-building-columns',command:()=>this.router.navigate(['/management/donor']) },
           { label: 'רכישות', icon: 'pi pi-wallet' },
           { label: 'הגרלה', icon: 'pi pi-sparkles' }
         ]

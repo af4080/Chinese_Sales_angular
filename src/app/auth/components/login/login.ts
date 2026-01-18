@@ -62,7 +62,7 @@ export class Login {
                 },
                 error: (error) => {
                     console.log(error);
-                    this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message ??  'Login failed', life: 3000 });
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed', life: 3000 });
                 }
             });
         } else {

@@ -69,7 +69,7 @@ onSubmit() {
                 },
                 error: (error) => {
                     console.log(error);
-                    this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message ??  'Form Submission Failed', life: 3000 });
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Form Submission Failed', life: 3000 });
                     
                 }
             });
@@ -81,3 +81,4 @@ onSubmit() {
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }
+

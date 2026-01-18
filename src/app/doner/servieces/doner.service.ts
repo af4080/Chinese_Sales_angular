@@ -4,14 +4,15 @@ import { ReadDonner } from '../model/doner-read.model';
 import { Observable } from 'rxjs';
 import { CreateDonner } from '../model/doner-create.model';
 import { UpdateDonner } from '../model/doner-update.model';
+import { environment } from '../../../enviorments/enviorment';
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class Doner {
+export class DonerService {
   
-  private readonly baseUrl = 'api/Donner';
+  private readonly baseUrl = `${environment.apiUrl}/api/Donner`;
 
   constructor(private http: HttpClient) {}
 

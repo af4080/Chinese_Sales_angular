@@ -5,6 +5,9 @@ import { NotFoundError } from 'rxjs';
 import { NotFound } from './other/components/not-found/not-found';
 import { Addgift } from './gifts/components/addgift/addgift';
 import { ManagementWrapper } from '../management-wrapper/management-wrapper';
+import { Component } from '@angular/core';
+import { ManageGifts } from './gifts/components/manage-gifts/manage-gifts';
+import { ManageDonor } from './doner/components/manage-donor/manage-donor';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,7 +15,8 @@ export const routes: Routes = [
     {path: 'login', component: Login},
     {path: 'management' ,component:ManagementWrapper,
         children:[
-            { path: 'addGift', component: Addgift }
+            { path: 'gift', component: ManageGifts },
+            { path:'donor',component:ManageDonor}
         ]},
     {path: '**', component : NotFound} 
 
