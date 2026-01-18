@@ -9,7 +9,7 @@ import { InputText, InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
-import { AuthService } from '../../servieces/auth.serviece';
+import { AuthService } from '../../servieces/auth.service';
 import {  LoginUser } from '../../models/user-login.model';
 import { CardModule } from 'primeng/card';
 

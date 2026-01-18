@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Menubar } from 'primeng/menubar';
-import { AuthService } from '../../../auth/servieces/auth.serviece';
+import { AuthService } from '../../../auth/servieces/auth.service';
 import { Router } from '@angular/router';
 
 @Component({

@@ -7,7 +7,7 @@ import { ToastModule } from "primeng/toast";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Password, PasswordModule } from "primeng/password";
 import { InputMask } from "primeng/inputmask";
-import { AuthService } from "../../servieces/auth.serviece";
+import { AuthService } from "../../servieces/auth.service";
 import { CreateUser } from "../../models/user-create.model";
 import { Router } from "@angular/router";
 
