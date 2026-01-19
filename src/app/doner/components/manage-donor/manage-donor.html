@@ -29,28 +29,28 @@
     <p-popover #op (onHide)="selectedDonor = null">
         <ng-template pTemplate="content">
             <div *ngIf="selectedDonor" class="rounded flex flex-col gap-4 w-80">
-                <form [formGroup]="donorForm" class="pt-2">
-                    <input pInputText type="text" formControlName="name" class="w-full mb-2"
-                        [placeholder]="selectedDonor?.name" [value]="selectedDonor?.name" />
+                <form [formGroup]="donorForm" class="pt-2 space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">שם</label>
+                        <input pInputText type="text" formControlName="name" class="w-full"
+                            [placeholder]="selectedDonor?.name" [value]="selectedDonor?.name" />
+                    </div>
 
+                    <div>
+                        <label class="block text-sm font-medium mb-1">אימייל</label>
+                        <input pInputText type="email" formControlName="email" class="w-full"
+                            [placeholder]="selectedDonor?.email" [value]="selectedDonor?.email" />
+                    </div>
 
+                    <div>
+                        <label class="block text-sm font-medium mb-1">טלפון</label>
+                        <input pInputText type="text" formControlName="phone" class="w-full"
+                            [placeholder]="selectedDonor?.phone" [value]="selectedDonor?.phone" />
+                    </div>
 
-                    <!-- <h3 class="text-lg font-medium mb-2">{{ selectedDonor?.name }}</h3> -->
-                    <div class="space-y-2">
-
-                        <div class="flex justify-between">
-                            <input pInputText type="email" formControlName="email" class="w-full mb-2"
-                                [placeholder]="selectedDonor?.email" [value]="selectedDonor?.email" />
-                        </div>
-                        <div class="flex justify-between">
-
-                            <input pInputText type="text" formControlName="phone" class="w-full mb-2"
-                                [placeholder]="selectedDonor?.phone" [value]="selectedDonor?.phone" />
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-surface-500 dark:text-surface-400">מזהה:</span>
-                            <span class="font-medium">{{ selectedDonor?.id }}</span>
-                        </div>
+                    <div class="flex justify-between pt-2">
+                        <span class="text-surface-500 dark:text-surface-400">מזהה:</span>
+                        <span class="font-medium">{{ selectedDonor?.id }}</span>
                     </div>
                 </form>
                 <div class="flex gap-2 pt-2">
@@ -67,18 +67,21 @@
             <div *ngIf="isAddingDonor" class="rounded flex flex-col gap-4 w-80">
                 <h3 class="text-lg font-medium">הוסף תורם חדש</h3>
                 <form [formGroup]="addDonorForm" class="pt-2">
+                    <label class="block text-sm font-medium mb-1">שם</label>
                     <input pInputText type="text" formControlName="name" class="w-full mb-2"
                         placeholder="שם התורם" />
                     <small class="block text-red-500 mb-2" *ngIf="addDonorForm.get('name')?.invalid && addDonorForm.get('name')?.touched">
                         שם חובה (עד 50 תווים)
                     </small>
 
+                    <label class="block text-sm font-medium mb-1">אימייל</label>
                     <input pInputText type="email" formControlName="email" class="w-full mb-2"
                         placeholder="אימייל" />
                     <small class="block text-red-500 mb-2" *ngIf="addDonorForm.get('email')?.invalid && addDonorForm.get('email')?.touched">
                         אימייל תקין חובה
                     </small>
 
+                    <label class="block text-sm font-medium mb-1">טלפון</label>
                     <input pInputText type="text" formControlName="phone" class="w-full mb-2"
                         placeholder="טלפון (10 ספרות)" />
                     <small class="block text-red-500 mb-2" *ngIf="addDonorForm.get('phone')?.invalid && addDonorForm.get('phone')?.touched">

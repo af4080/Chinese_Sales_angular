@@ -6,26 +6,31 @@
     <p-table [value]="gifts" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
         <ng-template pTemplate="header">
             <tr>
-                <th class="w-1/6">מזהה</th>
-                <th class="w-1/6">שם</th>
-                <th class="w-1/6">תיאור</th>
-                <th class="w-1/6">מחיר</th>
-                <th class="w-1/6">תורם</th>
-                <th class="w-1/6">קטגוריה</th>
-                <th class="w-1/6">פעולות</th>
+                <th class="w-1/7">מזהה</th>
+                <th class="w-1/7">תמונה</th>
+                <th class="w-1/7">שם</th>
+                <th class="w-1/7">תיאור</th>
+                <th class="w-1/7">מחיר</th>
+                <th class="w-1/7">תורם</th>
+                <th class="w-1/7">קטגוריה</th>
+                <th class="w-1/7">פעולות</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-gift>
             <tr>
                 <td>{{ gift.id }}</td>
+                <td *ngIf="gift.imagePath" class="text-center">
+                    <!-- <img [src]="'/'+gift.imagePath" class="h-12 w-12 object-cover rounded" /> -->
+                    {{ gift.imagePath }}
+                </td>
+                <td *ngIf="!gift.imagePath" class="text-center text-gray-400">-</td>
                 <td>{{ gift.name }}</td>
                 <td>{{ gift.description }}</td>
                 <td>{{ gift.price }}</td>
                 <td>{{ gift.donerName }}</td>
                 <td>{{ gift.categoryName }}</td>
                 <td>
-                    <p-button (onClick)="displaygift($event, gift)" icon="pi pi-search" severity="secondary"
-                        rounded />
+                    <p-button (onClick)="displaygift($event, gift)" icon="pi pi-search" severity="secondary" rounded />
                 </td>
             </tr>
         </ng-template>
@@ -33,26 +38,33 @@
     <p-popover #op (onHide)="selectedgift = null">
         <ng-template pTemplate="content">
             <div *ngIf="selectedgift" class="rounded flex flex-col gap-4 w-80">
-                <form [formGroup]="giftForm" class="pt-2">
-                    <input pInputText type="text" formControlName="name" class="w-full mb-2"
-                        [placeholder]="selectedgift?.name" [value]="selectedgift?.name" />
+                <form [formGroup]="updateGiftForm" class="pt-2 space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">שם</label>
+                        <input pInputText type="text" formControlName="name" class="w-full" />
+                    </div>
 
-                    <input pInputText type="text" formControlName="description" class="w-full mb-2"
-                        [placeholder]="selectedgift?.description" [value]="selectedgift?.description" />
+                    <div>
+                        <label class="block text-sm font-medium mb-1">תיאור</label>
+                        <input pInputText type="text" formControlName="description" class="w-full" />
+                    </div>
 
-                    <input pInputText type="number" formControlName="price" class="w-full mb-2"
-                        [placeholder]="selectedgift?.price" [value]="selectedgift?.price" />
+                    <div>
+                        <label class="block text-sm font-medium mb-1">מחיר</label>
+                        <input pInputText type="number" formControlName="price" class="w-full" />
+                    </div>
 
-                    <input pInputText type="text" formControlName="donerName" class="w-full mb-2"
-                        [placeholder]="selectedgift?.donerName" [value]="selectedgift?.donerName" />
+                    <div>
+                        <label class="block text-sm font-medium mb-1">נתיב התמונה</label>
+                        <input pInputText type="text" formControlName="imagePath" class="w-full" />
+                    </div>
 
-                    <input pInputText type="text" formControlName="imagePath" class="w-full mb-2"
-                        [placeholder]="selectedgift?.imagePath" [value]="selectedgift?.imagePath" />
+                    <div>
+                        <label class="block text-sm font-medium mb-1">קטגוריה</label>
+                        <input pInputText type="text" formControlName="categoryId" class="w-full" />
+                    </div>
 
-                    <input pInputText type="text" formControlName="categoryName" class="w-full mb-2"
-                        [placeholder]="selectedgift?.categoryName" [value]="selectedgift?.categoryName" />
-
-                    <div class="flex justify-between">
+                    <div class="flex justify-between pt-2">
                         <span class="text-surface-500 dark:text-surface-400">מזהה:</span>
                         <span class="font-medium">{{ selectedgift?.id }}</span>
                     </div>
@@ -71,46 +83,67 @@
             <div *ngIf="isAddinggift" class="rounded flex flex-col gap-4 w-80">
                 <h3 class="text-lg font-medium">הוסף מתנה חדשה</h3>
                 <form [formGroup]="addGiftForm" class="pt-2">
-                    <input pInputText type="text" formControlName="name" class="w-full mb-2"
-                        placeholder="שם המתנה" />
-                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('name')?.invalid && addGiftForm.get('name')?.touched">
+                    <label class="block text-sm font-medium mb-1">שם</label>
+                    <input pInputText type="text" formControlName="name" class="w-full mb-2" placeholder="שם המתנה" />
+                    <small class="block text-red-500 mb-2"
+                        *ngIf="addGiftForm.get('name')?.invalid && addGiftForm.get('name')?.touched">
                         שם חובה (עד 50 תווים)
                     </small>
 
+                    <label class="block text-sm font-medium mb-1">תיאור</label>
                     <input pInputText type="text" formControlName="description" class="w-full mb-2"
                         placeholder="תיאור" />
-                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('description')?.invalid && addGiftForm.get('description')?.touched">
+                    <small class="block text-red-500 mb-2"
+                        *ngIf="addGiftForm.get('description')?.invalid && addGiftForm.get('description')?.touched">
                         תיאור חובה (עד 200 תווים)
                     </small>
 
-                    <input pInputText type="number" formControlName="price" class="w-full mb-2"
-                        placeholder="מחיר" />
-                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('price')?.invalid && addGiftForm.get('price')?.touched">
+                    <label class="block text-sm font-medium mb-1">מחיר</label>
+                    <input pInputText type="number" formControlName="price" class="w-full mb-2" placeholder="מחיר" />
+                    <small class="block text-red-500 mb-2"
+                        *ngIf="addGiftForm.get('price')?.invalid && addGiftForm.get('price')?.touched">
                         מחיר תקין חובה
                     </small>
 
-                    <input pInputText type="text" formControlName="donerName" class="w-full mb-2"
-                        placeholder="שם התורם" />
-                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('donerName')?.invalid && addGiftForm.get('donerName')?.touched">
-                        שם התורם חובה (עד 50 תווים)
+
+                    <label class="block text-sm font-medium mb-1">תורם</label>
+                    <div class="card flex justify-center">
+                        <p-autocomplete [formControl]="donorDisplayControl" [dropdown]="true"
+                            [suggestions]="filteredDonors" (completeMethod)="filterDonors($event)"
+                            (onSelect)="onDonorSelect($event)" field="name">
+                            <ng-template let-donor pTemplate="item">
+                                <div class="p-2">
+                                    <div class="font-bold">{{ donor.name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-autocomplete>
+                    </div>
+                    <small class="block text-red-500 mb-2"
+                        *ngIf="addGiftForm.get('donerId')?.invalid && addGiftForm.get('donerId')?.touched">
+                        תורם חובה (בחר תורם מהרשימה)
                     </small>
 
+                    <label class="block text-sm font-medium mb-1">נתיב התמונה</label>
                     <input pInputText type="text" formControlName="imagePath" class="w-full mb-2"
                         placeholder="נתיב התמונה" />
-                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('imagePath')?.invalid && addGiftForm.get('imagePath')?.touched">
+                    <small class="block text-red-500 mb-2"
+                        *ngIf="addGiftForm.get('imagePath')?.invalid && addGiftForm.get('imagePath')?.touched">
                         נתיב התמונה חובה (עד 100 תווים)
                     </small>
 
-                    <input pInputText type="text" formControlName="categoryName" class="w-full mb-2"
+                    <label class="block text-sm font-medium mb-1">קטגוריה</label>
+                    <input pInputText type="number" formControlName="categoryId" class="w-full mb-2"
                         placeholder="קטגוריה" />
-                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('categoryName')?.invalid && addGiftForm.get('categoryName')?.touched">
+                    <small class="block text-red-500 mb-2"
+                        *ngIf="addGiftForm.get('categoryId')?.invalid && addGiftForm.get('categoryId')?.touched">
                         קטגוריה חובה (עד 50 תווים)
                     </small>
                 </form>
                 <div class="flex gap-2 pt-2">
                     <p-button icon="pi pi-check" label="שמור" class="flex-auto" styleClass="w-full"
                         (onClick)="addgift()" [disabled]="!addGiftForm.valid" />
-                    <p-button icon="pi pi-times" severity="secondary" outlined (onClick)="closeAddgiftDialog()" title="ביטול" />
+                    <p-button icon="pi pi-times" severity="secondary" outlined (onClick)="closeAddgiftDialog()"
+                        title="ביטול" />
                 </div>
             </div>
         </ng-template>
