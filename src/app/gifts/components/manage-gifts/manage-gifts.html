@@ -1,86 +1,118 @@
-<h1>dfhgg</h1>
-
-<!-- <div class="card">
+<p>manage-gifts works!</p>
+<div class="card">
+    <div class="mb-4">
+        <p-button label="הוסף מתנה חדשה" icon="pi pi-plus" (onClick)="openAddgiftDialog($event)" />
+    </div>
     <p-table [value]="gifts" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
-        <ng-template #header>
+        <ng-template pTemplate="header">
             <tr>
-                <th class="w-1/6">Id</th>
-                <th class="w-1/6">name</th>
-                <th class="w-1/6">description</th>
-                <th class="w-1/6">price</th>
-                <th class="w-1/6">imagePath</th>
-                <th class="w-1/6">Details</th>
+                <th class="w-1/6">מזהה</th>
+                <th class="w-1/6">שם</th>
+                <th class="w-1/6">תיאור</th>
+                <th class="w-1/6">מחיר</th>
+                <th class="w-1/6">תורם</th>
+                <th class="w-1/6">קטגוריה</th>
+                <th class="w-1/6">פעולות</th>
             </tr>
         </ng-template>
-        <ng-template #body let-product>
+        <ng-template pTemplate="body" let-gift>
             <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.descripation }}</td>
-                <td>{{ product.name }}</td>
-                <td>$ {{ product.price }}</td>
+                <td>{{ gift.id }}</td>
+                <td>{{ gift.name }}</td>
+                <td>{{ gift.description }}</td>
+                <td>{{ gift.price }}</td>
+                <td>{{ gift.donerName }}</td>
+                <td>{{ gift.categoryName }}</td>
                 <td>
-                    <img
-                        [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
-                        [alt]="product.image"
-                        class="w-16 shadow-sm"
-                    />
-                </td>
-                <td>
-                    <p-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
+                    <p-button (onClick)="displaygift($event, gift)" icon="pi pi-search" severity="secondary"
+                        rounded />
                 </td>
             </tr>
         </ng-template>
     </p-table>
-    <p-popover #op (onHide)="selectedProduct = null">
-        <ng-template #content>
-            <div *ngIf="selectedProduct" class="rounded flex flex-col">
-                <div class="flex justify-center rounded">
-                    <div class="relative mx-auto">
-                        <img
-                            class="rounded w-44 sm:w-64"
-                            [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image"
-                            [alt]="selectedProduct.name"
-                        />
-                        <p-tag
-                            [value]="selectedProduct.inventoryStatus"
-                            [severity]="getSeverity(selectedProduct)"
-                            class="absolute dark:!bg-surface-900"
-                            [style.left.px]="4"
-                            [style.top.px]="4"
-                        />
+    <p-popover #op (onHide)="selectedgift = null">
+        <ng-template pTemplate="content">
+            <div *ngIf="selectedgift" class="rounded flex flex-col gap-4 w-80">
+                <form [formGroup]="giftForm" class="pt-2">
+                    <input pInputText type="text" formControlName="name" class="w-full mb-2"
+                        [placeholder]="selectedgift?.name" [value]="selectedgift?.name" />
+
+                    <input pInputText type="text" formControlName="description" class="w-full mb-2"
+                        [placeholder]="selectedgift?.description" [value]="selectedgift?.description" />
+
+                    <input pInputText type="number" formControlName="price" class="w-full mb-2"
+                        [placeholder]="selectedgift?.price" [value]="selectedgift?.price" />
+
+                    <input pInputText type="text" formControlName="donerName" class="w-full mb-2"
+                        [placeholder]="selectedgift?.donerName" [value]="selectedgift?.donerName" />
+
+                    <input pInputText type="text" formControlName="imagePath" class="w-full mb-2"
+                        [placeholder]="selectedgift?.imagePath" [value]="selectedgift?.imagePath" />
+
+                    <input pInputText type="text" formControlName="categoryName" class="w-full mb-2"
+                        [placeholder]="selectedgift?.categoryName" [value]="selectedgift?.categoryName" />
+
+                    <div class="flex justify-between">
+                        <span class="text-surface-500 dark:text-surface-400">מזהה:</span>
+                        <span class="font-medium">{{ selectedgift?.id }}</span>
                     </div>
-                </div>
-                <div class="pt-4">
-                    <div class="flex flex-row justify-between items-start gap-2 mb-4">
-                        <div>
-                            <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{
-                                selectedProduct.category
-                            }}</span>
-                            <div class="text-lg font-medium mt-1">{{ selectedProduct.name }}</div>
-                        </div>
-                        <div class="bg-surface-100 p-1" style="border-radius: 30px">
-                            <div
-                                class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2"
-                                style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
-                            >
-                                <span class="text-surface-900 font-medium text-sm">{{ selectedProduct.rating }}</span>
-                                <i class="pi pi-star-fill text-yellow-500"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <p-button
-                            icon="pi pi-shopping-cart"
-                            [label]="'Buy Now | $' + selectedProduct.price"
-                            [disabled]="selectedProduct.inventoryStatus === 'OUTOFSTOCK'"
-                            class="flex-auto"
-                            styleClass="w-full whitespace-nowrap"
-                            (onClick)="hidePopover()"
-                        />
-                        <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
-                    </div>
+                </form>
+                <div class="flex gap-2 pt-2">
+                    <p-button icon="pi pi-pencil" label="עדכן" class="flex-auto" styleClass="w-full"
+                        (onClick)="updategift()" />
+                    <p-button icon="pi pi-trash" severity="danger" outlined (onClick)="deletegift()" />
                 </div>
             </div>
         </ng-template>
     </p-popover>
-</div> -->
+
+    <p-popover #addOp (onHide)="closeAddgiftDialog()">
+        <ng-template pTemplate="content">
+            <div *ngIf="isAddinggift" class="rounded flex flex-col gap-4 w-80">
+                <h3 class="text-lg font-medium">הוסף מתנה חדשה</h3>
+                <form [formGroup]="addGiftForm" class="pt-2">
+                    <input pInputText type="text" formControlName="name" class="w-full mb-2"
+                        placeholder="שם המתנה" />
+                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('name')?.invalid && addGiftForm.get('name')?.touched">
+                        שם חובה (עד 50 תווים)
+                    </small>
+
+                    <input pInputText type="text" formControlName="description" class="w-full mb-2"
+                        placeholder="תיאור" />
+                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('description')?.invalid && addGiftForm.get('description')?.touched">
+                        תיאור חובה (עד 200 תווים)
+                    </small>
+
+                    <input pInputText type="number" formControlName="price" class="w-full mb-2"
+                        placeholder="מחיר" />
+                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('price')?.invalid && addGiftForm.get('price')?.touched">
+                        מחיר תקין חובה
+                    </small>
+
+                    <input pInputText type="text" formControlName="donerName" class="w-full mb-2"
+                        placeholder="שם התורם" />
+                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('donerName')?.invalid && addGiftForm.get('donerName')?.touched">
+                        שם התורם חובה (עד 50 תווים)
+                    </small>
+
+                    <input pInputText type="text" formControlName="imagePath" class="w-full mb-2"
+                        placeholder="נתיב התמונה" />
+                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('imagePath')?.invalid && addGiftForm.get('imagePath')?.touched">
+                        נתיב התמונה חובה (עד 100 תווים)
+                    </small>
+
+                    <input pInputText type="text" formControlName="categoryName" class="w-full mb-2"
+                        placeholder="קטגוריה" />
+                    <small class="block text-red-500 mb-2" *ngIf="addGiftForm.get('categoryName')?.invalid && addGiftForm.get('categoryName')?.touched">
+                        קטגוריה חובה (עד 50 תווים)
+                    </small>
+                </form>
+                <div class="flex gap-2 pt-2">
+                    <p-button icon="pi pi-check" label="שמור" class="flex-auto" styleClass="w-full"
+                        (onClick)="addgift()" [disabled]="!addGiftForm.valid" />
+                    <p-button icon="pi pi-times" severity="secondary" outlined (onClick)="closeAddgiftDialog()" title="ביטול" />
+                </div>
+            </div>
+        </ng-template>
+    </p-popover>
+</div>

@@ -1,4 +1,4 @@
-export interface Gift {
+export interface ReadGift {
   id: number;
   name: string;
   description: string;

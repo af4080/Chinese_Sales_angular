@@ -1,13 +1,16 @@
 <p>manage-donors works!</p>
 <div class="card">
+    <div class="mb-4">
+        <p-button label="הוסף תורם חדש" icon="pi pi-plus" (onClick)="openAddDonorDialog($event)" />
+    </div>
     <p-table [value]="donors" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
         <ng-template pTemplate="header">
             <tr>
-                <th class="w-1/6">Id</th>
-                <th class="w-1/6">Name</th>
-                <th class="w-1/6">Email</th>
-                <th class="w-1/6">Phone</th>
-                <th class="w-1/6">Actions</th>
+                <th class="w-1/6">מזהה</th>
+                <th class="w-1/6">שם</th>
+                <th class="w-1/6">אימייל</th>
+                <th class="w-1/6">טלפון</th>
+                <th class="w-1/6">פעולות</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-donor>
@@ -45,15 +48,47 @@
                                 [placeholder]="selectedDonor?.phone" [value]="selectedDonor?.phone" />
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-surface-500 dark:text-surface-400">ID:</span>
+                            <span class="text-surface-500 dark:text-surface-400">מזהה:</span>
                             <span class="font-medium">{{ selectedDonor?.id }}</span>
                         </div>
                     </div>
                 </form>
                 <div class="flex gap-2 pt-2">
-                    <p-button icon="pi pi-pencil" label="Edit" class="flex-auto" styleClass="w-full"
-                        (onClick)="hidePopover()" />
-                    <p-button icon="pi pi-trash" severity="danger" outlined (onClick)="hidePopover()" />
+                    <p-button icon="pi pi-pencil" label="עדכן" class="flex-auto" styleClass="w-full"
+                        (onClick)="updateDonor()" />
+                    <p-button icon="pi pi-trash" severity="danger" outlined (onClick)="deleteDonor()" />
+                </div>
+            </div>
+        </ng-template>
+    </p-popover>
+
+    <p-popover #addOp (onHide)="closeAddDonorDialog()">
+        <ng-template pTemplate="content">
+            <div *ngIf="isAddingDonor" class="rounded flex flex-col gap-4 w-80">
+                <h3 class="text-lg font-medium">הוסף תורם חדש</h3>
+                <form [formGroup]="addDonorForm" class="pt-2">
+                    <input pInputText type="text" formControlName="name" class="w-full mb-2"
+                        placeholder="שם התורם" />
+                    <small class="block text-red-500 mb-2" *ngIf="addDonorForm.get('name')?.invalid && addDonorForm.get('name')?.touched">
+                        שם חובה (עד 50 תווים)
+                    </small>
+
+                    <input pInputText type="email" formControlName="email" class="w-full mb-2"
+                        placeholder="אימייל" />
+                    <small class="block text-red-500 mb-2" *ngIf="addDonorForm.get('email')?.invalid && addDonorForm.get('email')?.touched">
+                        אימייל תקין חובה
+                    </small>
+
+                    <input pInputText type="text" formControlName="phone" class="w-full mb-2"
+                        placeholder="טלפון (10 ספרות)" />
+                    <small class="block text-red-500 mb-2" *ngIf="addDonorForm.get('phone')?.invalid && addDonorForm.get('phone')?.touched">
+                        טלפון תקין חובה (10 ספרות)
+                    </small>
+                </form>
+                <div class="flex gap-2 pt-2">
+                    <p-button icon="pi pi-check" label="שמור" class="flex-auto" styleClass="w-full"
+                        (onClick)="addDonor()" [disabled]="!addDonorForm.valid" />
+                    <p-button icon="pi pi-times" severity="secondary" outlined (onClick)="closeAddDonorDialog()" title="ביטול" />
                 </div>
             </div>
         </ng-template>
