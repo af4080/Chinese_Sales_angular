@@ -1,4 +1,10 @@
-<div class="gifts">
-  <app-single-gift *ngFor="let gift of gifts" [gift]="gift"></app-single-gift>
-</div>
+<div class="grid grid-nogutter justify-content-center p-4">
+  <div *ngFor="let gift of gifts" class="col-12 md:col-6 lg:col-4 xl:col-3 p-3">
+    <app-single-gift [gift]="gift"></app-single-gift>
+  </div>
 
+  <div *ngIf="gifts.length === 0" class="col-12 text-center p-8 surface-card border-round-xl shadow-1">
+    <i class="pi pi-box text-5xl text-400 mb-3"></i>
+    <p class="text-xl font-medium text-600">כרגע אין מתנות זמינות להגרלה.</p>
+  </div>
+</div>

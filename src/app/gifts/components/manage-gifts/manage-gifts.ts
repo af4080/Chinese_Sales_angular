@@ -150,13 +150,13 @@ export class Managegift implements OnInit {
             const newgift: CreateGift = this.addGiftForm.value;
             this.giftService.create(newgift).subscribe(
                 (response) => {
-                    console.log('תורם חדש נוסף:', response);
+                    console.log('מתנה חדשה נוספה:', response);
                     this.gifts.push(response);
                     this.addGiftForm.reset();
                     this.addOp?.hide();
                     this.cdr.markForCheck();
                 },
-                (error) => console.log('שגיאה בהוספת תורם:', error)
+                (error) => console.log('שגיאה בהוספת מתנה:', error)
             );
         }
     }
@@ -200,7 +200,7 @@ export class Managegift implements OnInit {
         if (this.selectedgift !== null) {
             this.giftService.delete(this.selectedgift.id).subscribe(
                 (response) => {
-                    console.log('תורם נמחק:', response);
+                    console.log('מתנה נמחקה:', response);
                 },
                 (error) => console.log('שגיאה:', error)
             );

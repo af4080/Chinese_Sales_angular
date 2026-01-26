@@ -1,0 +1,42 @@
+/* הגדרת פלטת הצבעים של "זה לזה" */
+$primaryColor: #1e3a8a; // כחול עמוק ומכובד
+$accentColor: #d4af37;  // זהב יוקרתי
+$surfaceGround: #f8fafc; // רקע בהיר ונוקי
+
+:root {
+    --primary-color: #{$primaryColor};
+    --primary-color-text: #ffffff;
+    
+    /* עיצוב כפתורים ורכיבי PrimeNG */
+    .p-button {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        
+        &:hover {
+            background-color: darken($primaryColor, 5%);
+            border-color: darken($primaryColor, 5%);
+        }
+        
+        &.p-button-outlined {
+            color: $accentColor;
+            border-color: $accentColor;
+            
+            &:hover {
+                background: rgba($accentColor, 0.04);
+                border-color: darken($accentColor, 10%);
+                color: darken($accentColor, 10%);
+            }
+        }
+    }
+
+    /* עיצוב כרטיסיות המתנה */
+    .p-card {
+        border-top: 4px solid $accentColor; // פס זהב עליון למראה יוקרתי
+        border-radius: 12px;
+    }
+}
+
+/* שילוב PrimeFlex עם צבעי המותג */
+.text-primary { color: $primaryColor !important; }
+.bg-primary { background-color: $primaryColor !important; }
+.text-gold { color: $accentColor !important; }

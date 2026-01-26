@@ -5,9 +5,10 @@ import { ReadGift } from '../../models/gift.model';
 import { Button, ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @Component({
   selector: 'app-single-gift',
-  imports: [ButtonModule,CommonModule,CardModule],
+  imports: [ButtonModule,CommonModule,CardModule,ProgressSpinnerModule],
   templateUrl: './single-gift.html',
   styleUrl: './single-gift.scss',
 })
