@@ -38,7 +38,10 @@ export class Menu implements OnInit {
       },
       {
         label: 'כל המתנות',
-        icon: 'pi pi-gift'
+        icon: 'pi pi-gift',
+        command:()=>{
+          this.router.navigate(['/gifts']);
+        }
       }
     ];
 

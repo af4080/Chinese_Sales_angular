@@ -16,9 +16,10 @@ export const appConfig: ApplicationConfig = {
       providePrimeNG({
             theme: { preset: Aura,
               options: {
-                darkModeSelector: false// מומלץ לכבות אם אתה רוצה שליטה מלאה על הצבעים
+                darkModeSelector: "false"// מומלץ לכבות אם אתה רוצה שליטה מלאה על הצבעים
             }
-            }
+            },
+            ripple: true
         })
   ]
 };

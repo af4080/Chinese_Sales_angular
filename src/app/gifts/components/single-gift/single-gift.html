@@ -1,0 +1,16 @@
+<p-card *ngIf="gift !== null" class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4 p-shadow-2 p-bg-primary dark:p-bg-surface-900">
+    <div class="mb-4">
+        <div class="relative mx-auto">
+            <img src="/{{ gift?.imagePath }}" [alt]="gift?.name" class="w-full rounded" />
+        </div>
+    </div>
+    <div class="mb-4 font-medium">{{ gift?.name }}</div>
+    <div class="flex justify-between items-center">
+        <div class="mt-0 font-semibold text-xl">{{ '$' + gift?.price }}</div>
+        <span>
+            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+        </span>
+    </div>
+</p-card>
+<div *ngIf="gift === null">Loading gift details...</div>
