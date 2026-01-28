@@ -1,0 +1,64 @@
+.basket-wrapper {
+    background-color: #fcfcfc;
+    direction: rtl; // מבטיח יישור נכון לימין
+}
+
+.basket-card {
+    background: white;
+    border: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+}
+
+.product-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    display: block;
+}
+
+.quantity-selector {
+    ::ng-deep {
+        .p-button.p-button-sm {
+            width: 2rem;
+            height: 2rem;
+            background: #f1f5f9;
+            border: none;
+            color: #475569;
+            
+            &:hover { background: #e2e8f0; }
+        }
+    }
+}
+
+.amount-badge {
+    min-width: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.footer-card {
+    border-top: 4px solid var(--primary-color);
+}
+
+.checkout-btn {
+    background: #10b981 !important; // ירוק מרענן כמו בתמונה
+    border: none !important;
+}
+
+// ביטול הסקרולר האופקי המציק
+.custom-scroll {
+    overflow-x: hidden !important;
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 10px;
+    }
+}

@@ -3,10 +3,12 @@ import { MenuItem } from 'primeng/api';
 import { Menubar } from 'primeng/menubar';
 import { AuthService } from '../../../auth/servieces/auth.service';
 import { Router } from '@angular/router';
+import { DrawerModule } from 'primeng/drawer';
+import { Basket } from '../../../basket/components/basket/basket';
 
 @Component({
   selector: 'app-menu',
-  imports: [Menubar],
+  imports: [Menubar,DrawerModule,Basket],
   templateUrl: './menu.html',
   styleUrl: './menu.scss',
 })
@@ -16,6 +18,7 @@ export class Menu implements OnInit {
   private router = inject(Router);
    private isLoggedIn = false;
   private role = this.authService.getUserRole();
+    visible: boolean = false;
 
 
   buildMenu(): void {
@@ -44,6 +47,13 @@ export class Menu implements OnInit {
         }
       }
     ];
+    if(this.isLoggedIn){
+      this.items.push({
+        label: 'הסל שלי',  
+        icon: 'pi pi-shopping-cart',
+         command: () => this.visible = true
+      });
+    }
 
     if (this.isLoggedIn && this.authService.isAdmin()) {
       this.items.push({

@@ -1,5 +1,5 @@
 // read-user.dto.interface.ts
-export interface User {
+export interface ReadUser {
   id: number;
   name: string;
   email: string;

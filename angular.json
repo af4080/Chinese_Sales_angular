@@ -33,8 +33,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/primeflex/primeflex.css",
-              "node_modules/primeicons/primeicons.css",
-              "src/theme-ze-laze.scss"
+              "node_modules/primeicons/primeicons.css"
   
 
             ]

@@ -1,3 +1,8 @@
 <div class="card">
     <p-menubar [model]="items" />
 </div>
+
+<p-drawer header="הסל שלי" [(visible)]="visible" position="left" 
+          styleClass="w-full md:w-25rem lg:w-35rem">
+    <app-basket></app-basket>
+</p-drawer>
