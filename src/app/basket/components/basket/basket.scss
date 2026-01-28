@@ -62,3 +62,17 @@
         border-radius: 10px;
     }
 }
+.basket-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; // מונע את הסקרולר האופקי שראינו בתמונה
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.basket-card {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap; // מוודא שכל הפריטים נשארים בשורה אחת
+    align-items: center;
+}
