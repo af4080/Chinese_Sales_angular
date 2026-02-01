@@ -39,6 +39,10 @@ export class SingleGift {
   }
   addToCart(gift: ReadGift | null)
   {
+    if(localStorage.getItem('token')==null){
+      alert('עליך להתחבר כדי להוסיף מתנה לסל');
+      return;
+    }
     if(gift) {
        const basket :CreateBasket = {
         amount: 1,
