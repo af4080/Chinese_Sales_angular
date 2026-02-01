@@ -8,7 +8,7 @@ import { ReadBasket } from '../models/readBasket.model';
 @Injectable({
   providedIn: 'root',
 })
-export class BasketSrevice {
+export class BasketService {
     private apiUrl = `${environment.apiUrl}/api/basket`;
       constructor(private http: HttpClient) {}
 

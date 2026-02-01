@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { ReadBasket } from '../../models/readBasket.model';
-import { BasketSrevice } from '../../servieces/basket-srevice';
+import { BasketService } from '../../servieces/basket-srevice';
 import { CardClasses, CardModule } from 'primeng/card';
 import { InputNumber } from 'primeng/inputnumber';
 import { Table, TableModule } from 'primeng/table';
@@ -16,9 +16,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './basket.scss',
 })
 export class Basket {
-  private basketService = inject(BasketSrevice);
+  private basketService = inject(BasketService);
   basketItems: ReadBasket[] = [];
   loading: boolean = false;
+  cdr = inject(ChangeDetectorRef)
 
   ngOnInit(): void {
     this.loadBasket();
@@ -29,6 +30,7 @@ export class Basket {
     this.basketService.getMyBasket().subscribe({
       next: (items) => {
         this.basketItems = items;
+        this.cdr.detectChanges();
         this.loading = false;
       },
       error: () => this.loading = false
@@ -44,6 +46,7 @@ export class Basket {
       if (updated) {
         item.amount = updated.amount;
       }
+      this.cdr.detectChanges();
     });
   }
 
@@ -51,6 +54,7 @@ export class Basket {
     // שימוש בפונקציית המחיקה מהסרוויס שסיפקת
     this.basketService.deleteBasket(id).subscribe(() => {
       this.basketItems = this.basketItems.filter(item => item.id !== id);
+      this.cdr.detectChanges();
     });
   }
 

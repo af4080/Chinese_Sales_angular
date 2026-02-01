@@ -23,7 +23,9 @@
         <div class="flex gap-2 mt-3 justify-content-center">
             <p-button label="הוספה לסל" 
                       icon="pi pi-shopping-cart" 
-                      styleClass="w-full border-round-lg">
+                      styleClass="w-full border-round-lg"
+                       (onClick)="addToCart(gift)">
+                     
             </p-button>
             
             <p-button icon="pi pi-heart" 
