@@ -30,4 +30,7 @@ export class BasketService {
   deleteBasket(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  buyAll(): Observable<boolean> {
+  return this.http.post<boolean>(`${this.apiUrl}/buy-all`, {});
+}
 }

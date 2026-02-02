@@ -26,10 +26,12 @@ export class SingleGift {
   name:string = this.gift?.name || ''; 
   authService = inject(AuthService);
   hasBasket: boolean = !this.authService.isAdmin();
+  isFullPage: boolean = false;
 
 
 ngOnInit() {
   if (!this.gift) {
+    this.isFullPage = true;
     this.route.params.subscribe(params => {
       const nameFromUrl = params['name'];
       if (nameFromUrl) {

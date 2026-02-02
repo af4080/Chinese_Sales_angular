@@ -1,39 +1,16 @@
-/* single-gift.scss */
-
-/* שימוש ב-host-context או v-deep כדי לחדור להגדרות של PrimeNG */
 :host ::v-deep {
-    /* דריסת הכפתור הראשי */
-    .p-button {
-        background: #6a1b9a !important; /* סגול "זה לזה" */
-        border: 1px solid #6a1b9a !important;
-        color: #ffffff !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-
-        &:hover {
-            background: #4a148c !important; /* סגול כהה יותר במעבר עכבר */
-            border-color: #4a148c !important;
-        }
-
-        /* דריסת הכפתור הריק (Outlined) - כפתור הלב */
-        &.p-button-outlined {
-            background: transparent !important;
-            color: #6a1b9a !important;
-            border: 1px solid #6a1b9a !important;
-
-            &:hover {
-                background: rgba(106, 27, 154, 0.05) !important;
-                color: #4a148c !important;
-            }
-        }
-        
-        /* הסרת ה-ring/outline הירוק בזמן לחיצה */
-        &:focus {
-            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #9c27b0, 0 1px 2px 0 rgba(0, 0, 0, 0) !important;
-        }
+    /* הגדרת רוחב מקסימלי כשהמתנה מוצגת לבד */
+    .single-gift-full {
+        max-width: 500px; /* זה ימנע את המריחה שראית בצילום המסך */
+        margin-top: 2rem;
     }
 
-    /* דריסת צבע הטקסט הראשי לסגול */
-    .text-primary {
-        color: #6a1b9a !important;
+    /* שמירה על יחס תמונה נכון */
+    .aspect-video {
+        aspect-ratio: 16 / 9;
+    }
+
+    .p-card-body {
+        padding: 1.5rem;
     }
 }

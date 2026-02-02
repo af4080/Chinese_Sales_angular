@@ -1,6 +1,6 @@
-<div class="grid grid-nogutter justify-content-center p-4">
-  <div *ngFor="let gift of gifts" class="col-12 md:col-6 lg:col-2 xl:col-3 p-6">
-    <app-single-gift [gift]="gift" ></app-single-gift>
+<div class="grid grid-nogutter justify-content-center p-2 md:p-4">
+  <div *ngFor="let gift of gifts" class="col-12 md:col-6 lg:col-4 xl:col-3 p-3">
+    <app-single-gift [gift]="gift"></app-single-gift>
   </div>
 
   <div *ngIf="gifts.length === 0" class="col-12 text-center p-8 surface-card border-round-xl shadow-1">

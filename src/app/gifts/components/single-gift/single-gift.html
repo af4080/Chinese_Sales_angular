@@ -1,40 +1,51 @@
-<p-card *ngIf="gift; else loadingTemplate"
-    styleClass="h-full shadow-2 hover:shadow-5 transition-all border-round-xl overflow-hidden border-top-3 border-purple-800">
+<div [class]="isFullPage ? 'flex justify-content-center p-4' : 'h-full'">
+    <p-card *ngIf="gift; else loading" 
+        [styleClass]="'shadow-2 hover:shadow-5 transition-all border-round-xl overflow-hidden border-top-3 border-purple-800 ' + (isFullPage ? 'max-w-30rem w-full' : 'h-full')">
+        
+        <ng-template pTemplate="header">
+            <div class="relative overflow-hidden" [style.height]="isFullPage ? '350px' : '220px'">
+                <img src="/{{ gift?.imagePath }}" [alt]="gift?.name" class="w-full h-full object-cover shadow-2" />
+            </div>
+        </ng-template>
 
-    <ng-template pTemplate="header">
-        <div class="relative overflow-hidden" style="height: 220px;">
-            <img src="/{{ gift?.imagePath }}" [alt]="gift?.name" class="w-full h-full object-cover shadow-2" />
-        </div>
-    </ng-template>
+        <div class="flex flex-column gap-2 pt-2 text-center">
+            <div class="text-xl font-bold text-primary mb-2 h-3rem overflow-hidden">
+                <a *ngIf="!isFullPage" [routerLink]="['/gifts', gift?.name]">{{ gift?.name }}</a>
+                <span *ngIf="isFullPage">{{ gift?.name }}</span>
+            </div>
 
-    <div class="flex flex-column gap-2 pt-2 text-center">
+        
+          <div *ngIf="isFullPage" class="flex flex-column align-items-center justify-content-center px-3">
+                <p class="text-600 text-center text-base">
+                    {{ gift.description }}
+                </p>
+           </div>
+            <div class="flex flex-column align-items-center justify-content-center mt-auto pt-3 border-top-1 border-100 surface-50 border-round">
+                <span class="text-sm text-500 font-medium mb-1">כרטיס להגרלה ב-</span>
+                <span [class]="isFullPage ? 'text-5xl font-bold' : 'text-3xl font-bold'" style="color: #d4af37;">
+                    {{ gift?.price | currency:'ILS':'symbol':'1.0-0' }}
+                </span>
+            </div>
 
-        <div class="text-xl font-bold text-primary mb-2 h-3rem overflow-hidden">
-            <a [routerLink]="['/gifts', gift?.name]">{{ gift?.name }}</a>
-        </div>
+            <div class="flex gap-2 mt-3 justify-content-center">
+                <p-button *ngIf="hasBasket" label="הוספה לסל" icon="pi pi-shopping-cart" 
+                    [styleClass]="'w-full border-round-lg ' + (isFullPage ? 'p-button-lg' : '')"
+                    (onClick)="addToCart(gift)">
+                </p-button>
 
-        <div class="flex flex-column align-items-center justify-content-center mt-auto pt-3 border-top-1 border-100">
-            <span class="text-sm text-500 font-medium mb-1">כרטיס להגרלה ב-</span>
-            <span class="text-3xl font-bold" style="color: #d4af37;">
-                {{ gift?.price | currency:'ILS':'symbol':'1.0-0' }}
-            </span>
-        </div>
-
-        <div class="flex gap-2 mt-3 justify-content-center">
-            <p-button *ngIf="hasBasket" label="הוספה לסל" icon="pi pi-shopping-cart" styleClass="w-full border-round-lg"
-                (onClick)="addToCart(gift)">
-
+                <p-button icon="pi pi-heart" [outlined]="true" styleClass="border-round-lg">
+                </p-button>
+            </div>
+            
+            <p-button *ngIf="isFullPage" label="חזרה לכל המתנות" icon="pi pi-arrow-right" 
+                [link]="true" routerLink="/gifts" styleClass="mt-2 text-sm">
             </p-button>
-
-            <p-button icon="pi pi-heart" [outlined]="true" styleClass="border-round-lg">
-            </p-button>
         </div>
-    </div>
-</p-card>
+    </p-card>
+</div>
 
-<ng-template #loadingTemplate>
-    <div
-        class="flex flex-column align-items-center justify-content-center p-5 surface-card border-round-xl shadow-1 min-h-full">
+<ng-template #loading>
+    <div class="flex flex-column align-items-center justify-content-center p-8 surface-card border-round-xl shadow-1 min-h-full">
         <p-progressSpinner styleClass="w-3rem h-3rem" strokeWidth="4"></p-progressSpinner>
         <span class="mt-3 text-600 font-medium italic">טוען נתונים...</span>
     </div>

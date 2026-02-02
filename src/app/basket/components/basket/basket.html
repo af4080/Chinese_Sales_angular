@@ -39,6 +39,9 @@
             <span class="text-xl font-black">סה"כ:</span>
             <span class="text-2xl font-black text-primary">{{ totalSum | currency:'ILS' }}</span>
         </div>
-        <p-button label="מעבר לקופה" icon="pi pi-shopping-bag" styleClass="w-full p-3 font-bold checkout-btn" [rounded]="true"></p-button>
+        <p-button label="מעבר לקופה" icon="pi pi-shopping-bag"
+         styleClass="w-full p-3 font-bold checkout-btn" 
+         [rounded]="true"
+         (onClick)="buyAll()"></p-button>
     </div>
 </div>
