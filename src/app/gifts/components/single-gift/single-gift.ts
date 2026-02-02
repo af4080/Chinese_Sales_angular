@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, inject, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { GiftService } from '../../services/gift.service';
 import { ReadGift } from '../../models/gift.model';
 import { Button, ButtonModule } from 'primeng/button';
@@ -8,9 +8,10 @@ import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CreateBasket } from '../../../basket/models/createBasket.model';
 import { BasketService } from '../../../basket/servieces/basket-srevice';
+import { AuthService } from '../../../auth/servieces/auth.service';
 @Component({
   selector: 'app-single-gift',
-  imports: [ButtonModule,CommonModule,CardModule,ProgressSpinnerModule],
+  imports: [ButtonModule,CommonModule,CardModule,ProgressSpinnerModule,RouterLink],
   templateUrl: './single-gift.html',
   styleUrl: './single-gift.scss',
 })
@@ -23,26 +24,25 @@ export class SingleGift {
    @Input()
   gift: ReadGift | null = null;
   name:string = this.gift?.name || ''; 
+  authService = inject(AuthService);
+  hasBasket: boolean = !this.authService.isAdmin();
 
 
-  ngOnInit() {
-    // this.route.params.subscribe(params => {
-    //   const name = params['name'];
-      // this.giftService.getByName(this.name).subscribe(gift=> {
-      //   this.gift = gift;
-      //   console.log(gift);
-       
-      // });
-    // });
-     this.cdr.detectChanges();
-
+ngOnInit() {
+  if (!this.gift) {
+    this.route.params.subscribe(params => {
+      const nameFromUrl = params['name'];
+      if (nameFromUrl) {
+        this.giftService.getByName(nameFromUrl).subscribe(gift => {
+          this.gift = gift;
+          this.cdr.detectChanges();
+        });
+      }
+    });
   }
+}
   addToCart(gift: ReadGift | null)
   {
-    if(localStorage.getItem('token')==null){
-      alert('עליך להתחבר כדי להוסיף מתנה לסל');
-      return;
-    }
     if(gift) {
        const basket :CreateBasket = {
         amount: 1,

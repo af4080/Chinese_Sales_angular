@@ -52,7 +52,7 @@ export class Menu implements OnInit {
         }
       }
     ];
-    if(this.isLoggedIn){
+    if(this.isLoggedIn && this.role === 'user') {
       this.items.push({
         label: 'הסל שלי',  
         icon: 'pi pi-shopping-cart',

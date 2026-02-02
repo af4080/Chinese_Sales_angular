@@ -5,6 +5,7 @@ import { ReadGift } from '../../models/gift.model';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-gifts',
@@ -18,7 +19,9 @@ export class AllGifts {
   giftService = inject(GiftService);
   gifts: ReadGift[] = [];
   cdr = inject(ChangeDetectorRef);
+
   
+ 
 
   ngOnInit() {
     this.giftService.getAll().subscribe(gifts => {

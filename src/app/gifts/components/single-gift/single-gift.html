@@ -1,18 +1,18 @@
-<p-card *ngIf="gift; else loadingTemplate" styleClass="h-full shadow-2 hover:shadow-5 transition-all border-round-xl overflow-hidden border-top-3 border-purple-800">
-    
+<p-card *ngIf="gift; else loadingTemplate"
+    styleClass="h-full shadow-2 hover:shadow-5 transition-all border-round-xl overflow-hidden border-top-3 border-purple-800">
+
     <ng-template pTemplate="header">
         <div class="relative overflow-hidden" style="height: 220px;">
-            <img src="/{{ gift?.imagePath }}" 
-                 [alt]="gift?.name" 
-                 class="w-full h-full object-cover shadow-2" />
+            <img src="/{{ gift?.imagePath }}" [alt]="gift?.name" class="w-full h-full object-cover shadow-2" />
         </div>
     </ng-template>
 
     <div class="flex flex-column gap-2 pt-2 text-center">
+
         <div class="text-xl font-bold text-primary mb-2 h-3rem overflow-hidden">
-            {{ gift?.name }}
+            <a [routerLink]="['/gifts', gift?.name]">{{ gift?.name }}</a>
         </div>
-        
+
         <div class="flex flex-column align-items-center justify-content-center mt-auto pt-3 border-top-1 border-100">
             <span class="text-sm text-500 font-medium mb-1">כרטיס להגרלה ב-</span>
             <span class="text-3xl font-bold" style="color: #d4af37;">
@@ -21,23 +21,20 @@
         </div>
 
         <div class="flex gap-2 mt-3 justify-content-center">
-            <p-button label="הוספה לסל" 
-                      icon="pi pi-shopping-cart" 
-                      styleClass="w-full border-round-lg"
-                       (onClick)="addToCart(gift)">
-                     
+            <p-button *ngIf="hasBasket" label="הוספה לסל" icon="pi pi-shopping-cart" styleClass="w-full border-round-lg"
+                (onClick)="addToCart(gift)">
+
             </p-button>
-            
-            <p-button icon="pi pi-heart" 
-                      [outlined]="true" 
-                      styleClass="border-round-lg">
+
+            <p-button icon="pi pi-heart" [outlined]="true" styleClass="border-round-lg">
             </p-button>
         </div>
     </div>
 </p-card>
 
 <ng-template #loadingTemplate>
-    <div class="flex flex-column align-items-center justify-content-center p-5 surface-card border-round-xl shadow-1 min-h-full">
+    <div
+        class="flex flex-column align-items-center justify-content-center p-5 surface-card border-round-xl shadow-1 min-h-full">
         <p-progressSpinner styleClass="w-3rem h-3rem" strokeWidth="4"></p-progressSpinner>
         <span class="mt-3 text-600 font-medium italic">טוען נתונים...</span>
     </div>
