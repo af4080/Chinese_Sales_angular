@@ -4,5 +4,5 @@
 
 <p-drawer header="הסל שלי" [(visible)]="visible" (onShow)="openBasket()" position="left" 
           styleClass="w-full md:w-25rem lg:w-35rem">
-    <app-basket #basketRef></app-basket>
+    <app-basket #basketRef (onClose)="visible=false"></app-basket>
 </p-drawer>

@@ -9,6 +9,7 @@ import { Managegift} from './gifts/components/manage-gifts/manage-gifts';
 import { ManageDonor } from './doner/components/manage-donor/manage-donor';
 import { SingleGift } from './gifts/components/single-gift/single-gift';
 import { AllGifts } from './gifts/components/all-gifts/all-gifts';
+import { Success } from './basket/components/success/success';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,11 +17,12 @@ export const routes: Routes = [
     {path: 'login', component: Login},
     {path:'gifts', component:AllGifts}, 
     {path:"gifts/:name", component:SingleGift},
+    { path: 'purchase-success', component: Success },
     
     {path: 'management' ,component:ManagementWrapper,
         children:[
             { path: 'gift', component: Managegift },
-            { path:'donor',component:ManageDonor}
+            { path:'donor',component:ManageDonor},
         ]},
     {path: '**', component : NotFound} 
 

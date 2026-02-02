@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Output, output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ReadBasket } from '../../models/readBasket.model';
 import { BasketService } from '../../servieces/basket-srevice';
@@ -8,6 +8,7 @@ import {  TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { baseItem } from '@primeuix/themes/aura/megamenu';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-basket',
@@ -20,6 +21,8 @@ export class Basket {
   basketItems: ReadBasket[] = [];
   loading: boolean = false;
   cdr = inject(ChangeDetectorRef)
+  router = inject(Router)
+  @Output() onClose = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.loadBasket();
@@ -61,12 +64,22 @@ export class Basket {
   get totalSum(): number {
     return this.basketItems.reduce((acc, item) => acc + (item.gift.price * item.amount), 0);
   }
-  buyAll(){
-    this.basketService.buyAll().subscribe(()=>{
+ buyAll() {
+  this.basketService.buyAll().subscribe({
+    next: () => {
       this.basketItems = [];
       this.cdr.detectChanges();
-    
-    })
+      this.onClose.emit();
+      
+ 
+      this.router.navigate(['/purchase-success']); 
+    },
+    error: (err) => {
+      console.error('הרכישה נכשלה:', err);
+    }
+  });
+ 
+
   }
 
 }
