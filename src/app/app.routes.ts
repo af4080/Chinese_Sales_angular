@@ -10,6 +10,7 @@ import { ManageDonor } from './doner/components/manage-donor/manage-donor';
 import { SingleGift } from './gifts/components/single-gift/single-gift';
 import { AllGifts } from './gifts/components/all-gifts/all-gifts';
 import { Success } from './basket/components/success/success';
+import { ManagePurchase } from './purchase/components/manage-purchase/manage-purchase';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
         children:[
             { path: 'gift', component: Managegift },
             { path:'donor',component:ManageDonor},
+            {path:'purchase',component:ManagePurchase}
         ]},
     {path: '**', component : NotFound} 
 
