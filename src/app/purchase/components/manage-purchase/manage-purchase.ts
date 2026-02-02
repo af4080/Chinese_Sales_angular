@@ -5,34 +5,53 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ReadPurchase } from '../../models/ReadPurchase.model';
 import { PurchaseService } from '../../services/purchase.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-manage-purchase',
-imports: [TableModule, ButtonModule, TagModule, CommonModule],
+  imports: [TableModule, ButtonModule, TagModule, CommonModule, ToastModule],
   templateUrl: './manage-purchase.html',
   styleUrl: './manage-purchase.scss',
+  providers: [MessageService]
 })
 export class ManagePurchase implements OnInit {
   // מערך לאחסון הרכישות שיחזרו מהשרת
   purchases: ReadPurchase[] = [];
-  
+
   private purchaseService = inject(PurchaseService);
   private cdr = inject(ChangeDetectorRef);
+  loading: boolean = false;
 
   ngOnInit() {
     this.loadPurchases();
   }
-
   loadPurchases() {
-    // קריאה ל-API שמחזיר פרטי קונים ומתנות
+    this.loading = true; // התחלת טעינה
     this.purchaseService.getBuyersDetails().subscribe({
       next: (data) => {
         this.purchases = data;
-        this.cdr.markForCheck(); // עדכון התצוגה
+        this.loading = false; // סיום טעינה
+        this.cdr.markForCheck();
       },
-      error: (err) => console.error('שגיאה בטעינת רכישות:', err)
+      error: (err) => {
+        this.loading = false; // סיום טעינה גם במקרה של שגיאה
+        console.error('שגיאה:', err);
+      }
+    });
+  }
+  sortByPrice() {
+    this.loading = true;
+    this.purchaseService.getPurchasesOrderedByPrice().subscribe({
+      next: (data) => {
+        this.purchases = data;
+        this.loading = false;
+        this.cdr.markForCheck();
+      },
+      error: () => this.loading = false
     });
   }
 }
+
 
 
