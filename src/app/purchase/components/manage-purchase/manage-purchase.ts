@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ReadPurchase } from '../../models/ReadPurchase.model';
-import { PurchaseService } from '../../services/purchase';
+import { PurchaseService } from '../../services/purchase.service';
 
 @Component({
   selector: 'app-manage-purchase',
