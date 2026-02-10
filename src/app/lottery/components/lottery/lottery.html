@@ -1,0 +1,34 @@
+<div class="admin-container">
+  <h2>ניהול הגרלות - מכירה סינית</h2>
+  <hr>
+
+  <div class="actions-grid">
+    <div class="card">
+      <h3>ביצוע הגרלה</h3>
+      <p>לחיצה על כפתור זה תבצע הגרלה אוטומטית לכל המתנות שטרם נקבע להן זוכה.</p>
+      <button (click)="runAllLotteries()" [disabled]="isLoading" class="btn-primary">
+        {{ isLoading ? 'מגריל פריטים...' : 'הגרל הכל עכשיו' }}
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>דוח זוכים</h3>
+      <p>הורדת קובץ ZIP המכיל קובץ CSV עם פרטי כל הזוכים והמתנות שלהם.</p>
+      <button (click)="downloadWinners()" class="btn-secondary">
+        הורד דוח זוכים (ZIP)
+      </button>
+    </div>
+
+    <div class="card danger">
+      <h3>איפוס מערכת</h3>
+      <p>מחיקת כל הזוכים הקיימים והכנת המערכת למכירה חדשה.</p>
+      <button (click)="resetSale()" class="btn-danger">
+        איפוס מכירה סינית
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="message" class="status-message">
+    {{ message }}
+  </div>
+</div>
