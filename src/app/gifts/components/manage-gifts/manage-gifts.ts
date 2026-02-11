@@ -15,6 +15,8 @@ import { CreateGift } from '../../models/create-gift.model';
 import { ReadDonner } from '../../../doner/model/doner-read.model';
 import { DonerService } from '../../../doner/servieces/doner.service';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CategoryService } from '../../../category/servieces/category-service';
+import { ReadCategory } from '../../../category/models/read-category.model';
 
 
 @Component({
@@ -42,33 +44,58 @@ export class Managegift implements OnInit {
     @ViewChild('op') op!: Popover;
     @ViewChild('addOp') addOp!: Popover;
     donors: ReadDonner[] = [];
+    categories:ReadCategory[] = [];
     filteredDonors: ReadDonner[] = [];
+    filteredCategories: ReadCategory[] = [];
     selectedDonor: ReadDonner | null = null;
+    selectedCategory: ReadCategory | null = null;
     donorDisplayControl = new FormControl< ReadDonner | null>(null);
+    categoryDisplayControl = new FormControl< ReadCategory | null>(null);
     private fb = inject(FormBuilder);
     private giftService = inject(GiftService);
     private cdr = inject(ChangeDetectorRef);
     private donerService = inject(DonerService);
-    private name = '';
+    private categoryService = inject(CategoryService);
 
 
     ngOnInit() {
         this.loadgifts();
         this.loadDonors();
+        this.loadCategories();
         this.initializeForms();
     }
     // Load donors for autocomplete
     loadDonors() {
-        this.donerService.getAllDonners().subscribe(d => {
-            this.donors = d;
-            this.cdr.markForCheck();
+        this.donerService.getAllDonners().subscribe( 
+        {
+            next: (d: ReadDonner[]) => {
+                this.donors = d;
+                this.cdr.markForCheck();
+            },
+            error: (err) => console.log('Error loading donors:', err)        
+        });
+    }   
+  
+    loadCategories() {
+        this.categoryService.getAllCategories().subscribe({
+            next:(c:ReadCategory[]) => {
+                console.log(c);
+                this.categories = c;
+                
+                this.cdr.markForCheck();
+            },
+            error: (err) => console.log('Error loading categories:', err)
         });
     }
     filterDonors(event: any) {
         const query = event.query.toLowerCase();
         console.log(query);
-        
         this.filteredDonors = this.donors.filter(donor => donor.name.toLowerCase().includes(query));
+    }
+    filterCategories(event: any) {
+        const query = event.query.toLowerCase();
+        console.log(query); 
+        this.filteredCategories = this.categories.filter(category =>category.name && category.name.toLowerCase().includes(query));
     }
 
     onDonorSelect(event: any) {
@@ -76,6 +103,13 @@ export class Managegift implements OnInit {
         this.addGiftForm.patchValue({ donerId: donor.id });
         this.selectedDonor = donor;
         this.donorDisplayControl.setValue(donor);
+    }
+
+    onCategorySelect(event: any) {
+        const category: ReadCategory = event.value;
+        this.addGiftForm.patchValue({ categoryId: category.id });
+        this.selectedCategory = category;
+        this.categoryDisplayControl.setValue(category);
     }
 
     loadgifts() {
@@ -134,7 +168,9 @@ export class Managegift implements OnInit {
                 price: gift.price,
                 imagePath: gift.imagePath,
                 categoryId: gift.categoryId
+
             });
+            this.categoryDisplayControl.setValue(this.categories.find(c => c.id === gift.categoryId) || null);
             this.op?.show(event);
         }
     }

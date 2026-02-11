@@ -12,7 +12,7 @@ import { environment } from '../../../enviorments/enviorment';
 export class CategoryService {
   
 private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}api/Category`; 
+  private apiUrl = `${environment.apiUrl}/api/Category`; 
 
   getAllCategories(): Observable<ReadCategory[]> {
     return this.http.get<ReadCategory[]>(this.apiUrl);
