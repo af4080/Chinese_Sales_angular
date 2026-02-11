@@ -33,4 +33,7 @@ export class LotteryService {
       responseType: 'blob' // חשוב מאוד כדי לטפל בקובץ בינארי
     });
   }
+  getallwinners(): Observable<any> {
+    return this.http.get(this.apiUrl);
+  }
 }

@@ -110,7 +110,7 @@
                     <div class="card flex justify-center">
                         <p-autocomplete [formControl]="donorDisplayControl" [dropdown]="true"
                             [suggestions]="filteredDonors" (completeMethod)="filterDonors($event)"
-                            (onSelect)="onDonorSelect($event)" field="name">
+                            (onSelect)="onDonorSelect($event)" field="name" optionLabel="name">
                             <ng-template let-donor pTemplate="item">
                                 <div class="p-2">
                                     <div class="font-bold">{{ donor.name }}</div>
@@ -119,7 +119,7 @@
                         </p-autocomplete>
                     </div>
                     <small class="block text-red-500 mb-2"
-                        *ngIf="addGiftForm.get('donerId')?.invalid && addGiftForm.get('donerId')?.touched">
+                        *ngIf="addGiftForm.get('donerId')?.invalid && addGiftForm.get('donerId')?.touched" >
                         תורם חובה (בחר תורם מהרשימה)
                     </small>
 

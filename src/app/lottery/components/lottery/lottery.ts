@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { LotteryService } from '../../servieces/lottery.serviece';
 import { CommonModule } from '@angular/common';
+import { ReadGift } from '../../../gifts/models/gift.model';
 
 @Component({
   selector: 'app-lottery',
@@ -14,15 +15,44 @@ export class Lottery {
   lotteryService = inject(LotteryService);
   isLoading = false;
   message = '';
+  winners:any[] = [];
+  cdr= inject(ChangeDetectorRef);
+  ngOnInit() {
+    this.loadWinners();
+  }
 
-  // הרצת הגרלה לכל המתנות
+loadWinners() {
+  this.lotteryService.getallwinners().subscribe({
+    next: (res: any[]) => {  
+      this.winners = res.map((winner: any) => 
+        `זוכה: ${winner.winnerName}, מתנה: ${winner.giftName}`
+      );
+       if(this.winners.length > 0) {
+        this.isLoading =true;
+      }
+      console.log('Winners loaded successfully');
+       this.cdr.detectChanges();
+    },
+    error: (err) => {
+      this.message = 'שגיאה בטעינת הזוכים';
+      console.error('Error:', err);
+      // עדכון התצוגה במקרה של שגיאה
+    }
+  });
+}
+
+
   runAllLotteries() {
     if (confirm('האם אתה בטוח שברצונך להגריל את כל המתנות שטרם הוגרלו?')) {
       this.isLoading = true;
       this.lotteryService.runAllLotteries().subscribe({
         next: (res) => {
+          console.log(res);
+
           this.message = 'ההגרלה הסתיימה בהצלחה!';
           this.isLoading = false;
+          this.loadWinners();
+           this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Server Error:', err.error);
@@ -52,7 +82,12 @@ export class Lottery {
   resetSale() {
     if (confirm('אזהרה! פעולה זו תמחק את כל הזוכים ותאפס את המכירה. האם להמשיך?')) {
       this.lotteryService.startNewChineseSale().subscribe({
-        next: (res) => alert('המכירה אופסה בהצלחה'),
+        next: (res) => {
+          alert('המכירה אופסה בהצלחה');
+          this.loadWinners(); // טעינת רשימת הזוכים לאחר האיפוס
+          this.cdr.detectChanges();
+          this.isLoading = false;
+        },
         error: (err) => console.error(err)
       });
     }

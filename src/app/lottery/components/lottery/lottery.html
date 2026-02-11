@@ -7,7 +7,7 @@
       <h3>ביצוע הגרלה</h3>
       <p>לחיצה על כפתור זה תבצע הגרלה אוטומטית לכל המתנות שטרם נקבע להן זוכה.</p>
       <button (click)="runAllLotteries()" [disabled]="isLoading" class="btn-primary">
-        {{ isLoading ? 'מגריל פריטים...' : 'הגרל הכל עכשיו' }}
+        {{ isLoading ?"לא ניתן לבצע הגרלה": 'הגרל הכל עכשיו' }}
       </button>
     </div>
 
@@ -28,7 +28,13 @@
     </div>
   </div>
 
-  <div *ngIf="message" class="status-message">
+  <div  class="status-message">
     {{ message }}
   </div>
+<div>
+  <h3>זוכים:</h3>
+  <ul>
+    <li *ngFor="let winner of winners">{{ winner }}</li>
+  </ul>
+</div>
 </div>
