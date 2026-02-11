@@ -17,6 +17,7 @@ import { DonerService } from '../../../doner/servieces/doner.service';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CategoryService } from '../../../category/servieces/category-service';
 import { ReadCategory } from '../../../category/models/read-category.model';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 
 @Component({
@@ -40,17 +41,18 @@ export class Managegift implements OnInit {
     updateGiftForm!: FormGroup;
     selectedgift: ReadGift | null = null;
     isAddinggift: boolean = false;
+    searchForm!: FormGroup;
 
     @ViewChild('op') op!: Popover;
     @ViewChild('addOp') addOp!: Popover;
     donors: ReadDonner[] = [];
-    categories:ReadCategory[] = [];
+    categories: ReadCategory[] = [];
     filteredDonors: ReadDonner[] = [];
     filteredCategories: ReadCategory[] = [];
     selectedDonor: ReadDonner | null = null;
     selectedCategory: ReadCategory | null = null;
-    donorDisplayControl = new FormControl< ReadDonner | null>(null);
-    categoryDisplayControl = new FormControl< ReadCategory | null>(null);
+    donorDisplayControl = new FormControl<ReadDonner | null>(null);
+    categoryDisplayControl = new FormControl<ReadCategory | null>(null);
     private fb = inject(FormBuilder);
     private giftService = inject(GiftService);
     private cdr = inject(ChangeDetectorRef);
@@ -63,25 +65,60 @@ export class Managegift implements OnInit {
         this.loadDonors();
         this.loadCategories();
         this.initializeForms();
+        this.setupSearchSubscription();
     }
+    setupSearchSubscription() {
+    this.searchForm.valueChanges.pipe(
+        debounceTime(400),
+        distinctUntilChanged()
+    ).subscribe(filters => {
+        this.applyFilters(filters);
+    });
+    }
+    applyFilters(filters: any) {
+    if (filters.name) {
+        this.giftService.getByName(filters.name).subscribe(
+            res => this.gifts = res ? [res] : [],
+            err => this.gifts = []
+        );
+    } 
+    else if (filters.donor && filters.donor.name) {
+        this.giftService.getByDonerName(filters.donor.name).subscribe(res => this.gifts = res);
+    }
+    // 3. סינון לפי מספר רוכשים
+    else if (filters.minBuyers !== null && filters.minBuyers !== '') {
+        this.giftService.getByNumCustomer(filters.minBuyers).subscribe(res => this.gifts = res);
+    }
+
+    else {
+        this.loadgifts();
+    }
+}
+resetFilters() {
+    this.searchForm.reset();
+    this.loadgifts();
+}
+
+
+
     // Load donors for autocomplete
     loadDonors() {
-        this.donerService.getAllDonners().subscribe( 
-        {
-            next: (d: ReadDonner[]) => {
-                this.donors = d;
-                this.cdr.markForCheck();
-            },
-            error: (err) => console.log('Error loading donors:', err)        
-        });
-    }   
-  
+        this.donerService.getAllDonners().subscribe(
+            {
+                next: (d: ReadDonner[]) => {
+                    this.donors = d;
+                    this.cdr.markForCheck();
+                },
+                error: (err) => console.log('Error loading donors:', err)
+            });
+    }
+
     loadCategories() {
         this.categoryService.getAllCategories().subscribe({
-            next:(c:ReadCategory[]) => {
+            next: (c: ReadCategory[]) => {
                 console.log(c);
                 this.categories = c;
-                
+
                 this.cdr.markForCheck();
             },
             error: (err) => console.log('Error loading categories:', err)
@@ -94,8 +131,8 @@ export class Managegift implements OnInit {
     }
     filterCategories(event: any) {
         const query = event.query.toLowerCase();
-        console.log(query); 
-        this.filteredCategories = this.categories.filter(category =>category.name && category.name.toLowerCase().includes(query));
+        console.log(query);
+        this.filteredCategories = this.categories.filter(category => category.name && category.name.toLowerCase().includes(query));
     }
 
     onDonorSelect(event: any) {
@@ -145,6 +182,12 @@ export class Managegift implements OnInit {
             imagePath: ['', [Validators.maxLength(100)]],
             categoryId: ['', [Validators.required, Validators.min(1)]],
         });
+        this.searchForm = this.fb.group({
+            name: [''],
+            donor: [null],
+            minBuyers: [null]
+        });
+
     }
 
     displaygift(event: Event, gift: ReadGift) {

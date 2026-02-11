@@ -1,3 +1,38 @@
+
+<div class="card mb-4 p-4 bg-gray-50">
+    <h3 class="font-bold mb-3">חיפוש וסינון</h3>
+    <form [formGroup]="searchForm" class="flex flex-wrap gap-4 items-end">
+        <div class="flex flex-col gap-1">
+            <label class="text-sm font-semibold">שם מתנה</label>
+            <input pInputText formControlName="name" placeholder="הקלד שם..." class="w-48" />
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label class="text-sm font-semibold">תורם</label>
+            <p-autocomplete 
+                formControlName="donor" 
+                [suggestions]="filteredDonors" 
+                (completeMethod)="filterDonors($event)" 
+                field="name" 
+                [dropdown]="true" 
+                placeholder="בחר תורם..."
+                (onClear)="loadgifts()">
+            </p-autocomplete>
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label class="text-sm font-semibold">מספר רוכשים (לפחות)</label>
+            <input pInputText type="number" formControlName="minBuyers" placeholder="0" class="w-32" />
+        </div>
+
+        <p-button label="נקה סינונים" icon="pi pi-filter-slash" severity="secondary" (onClick)="resetFilters()"></p-button>
+    </form>
+</div>
+
+
+
+
+
 <div class="card">
     <div class="mb-4">
         <p-button label="הוסף מתנה חדשה" icon="pi pi-plus" (onClick)="openAddgiftDialog($event)" />
