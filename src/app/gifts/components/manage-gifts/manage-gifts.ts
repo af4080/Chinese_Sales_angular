@@ -185,7 +185,7 @@ resetFilters() {
         this.searchForm = this.fb.group({
             name: [''],
             donor: [null],
-            minBuyers: [null]
+            minBuyers: [0]
         });
 
     }

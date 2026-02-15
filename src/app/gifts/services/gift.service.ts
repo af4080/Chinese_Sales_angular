@@ -49,4 +49,7 @@ export class GiftService {
   update(name: string, gift: UpdateGift): Observable<ReadGift> {
     return this.http.patch<ReadGift>(`${this.apiUrl}/${name}`, gift);
   }
+  GetWinnerByGiftId(giftId: number): Observable<{winner: string}> {
+    return this.http.get<{winner: string}>(`${this.apiUrl}/${giftId}/winner`);
+  }
 }

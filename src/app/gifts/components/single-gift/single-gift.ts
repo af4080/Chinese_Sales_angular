@@ -25,8 +25,9 @@ export class SingleGift {
   gift: ReadGift | null = null;
   name:string = this.gift?.name || ''; 
   authService = inject(AuthService);
-  hasBasket: boolean = !this.authService.isAdmin();
+  hasBasket: boolean = !this.authService.isAdmin()  && this.authService.isLoggedIn();
   isFullPage: boolean = false;
+  winnerName: string = '';
 
 
 ngOnInit() {
@@ -37,10 +38,14 @@ ngOnInit() {
       if (nameFromUrl) {
         this.giftService.getByName(nameFromUrl).subscribe(gift => {
           this.gift = gift;
+          this.getWinnerName();
           this.cdr.detectChanges();
         });
       }
     });
+  } else {  
+    this.getWinnerName();
+
   }
 }
   addToCart(gift: ReadGift | null)
@@ -59,5 +64,23 @@ ngOnInit() {
         }
        });
     } 
+  }
+  getWinnerName() {
+    if(this.gift) {
+      this.giftService.GetWinnerByGiftId(this.gift.id).subscribe({  
+        next: (res) => {
+          this.winnerName = res.winner;
+          console.log(this.winnerName);
+          
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error fetching winner name:', err);
+          this.winnerName = '';
+             console.log(this.winnerName);
+          this.cdr.detectChanges();
+        }
+      });
+    }
   }
 }

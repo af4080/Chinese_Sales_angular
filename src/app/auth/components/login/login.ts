@@ -12,6 +12,7 @@ import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../../servieces/auth.service';
 import {  LoginUser } from '../../models/user-login.model';
 import { CardModule } from 'primeng/card';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ import { CardModule } from 'primeng/card';
       InputText,
     CardModule,
     CommonModule,
-    InputTextModule],   
+    InputTextModule,
+RouterLink],   
   templateUrl: './login.html',
   styleUrl: './login.scss',
   providers:[MessageService]

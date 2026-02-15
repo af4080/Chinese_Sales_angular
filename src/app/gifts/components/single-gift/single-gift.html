@@ -28,10 +28,13 @@
             </div>
 
             <div class="flex gap-2 mt-3 justify-content-center">
-                <p-button *ngIf="hasBasket" label="הוספה לסל" icon="pi pi-shopping-cart" 
+                <p-button *ngIf="hasBasket && winnerName ==='' " label="הוספה לסל" icon="pi pi-shopping-cart" 
                     [styleClass]="'w-full border-round-lg ' + (isFullPage ? 'p-button-lg' : '')"
                     (onClick)="addToCart(gift)">
                 </p-button>
+                <span *ngIf="winnerName !== ''" class="text-sm text-800 font-medium mt-2"> זוכה המתנה: {{ winnerName }}</span>
+
+                
 
                 <p-button icon="pi pi-heart" [outlined]="true" styleClass="border-round-lg">
                 </p-button>
