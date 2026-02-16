@@ -144,10 +144,17 @@ resetFilters() {
 
     onCategorySelect(event: any) {
         const category: ReadCategory = event.value;
-        this.addGiftForm.patchValue({ categoryId: category.id });
+        
+        this.updateGiftForm.patchValue({ categoryId: category.id });
         this.selectedCategory = category;
         this.categoryDisplayControl.setValue(category);
+
+    if (this.isAddinggift) {
+        this.addGiftForm.patchValue({ categoryId: category.id });
+    } else if (this.selectedgift) {
+        this.updateGiftForm.patchValue({ categoryId: category.id });
     }
+}
 
     loadgifts() {
         this.giftService.getAll().subscribe(g => {
@@ -191,6 +198,7 @@ resetFilters() {
     }
 
     displaygift(event: Event, gift: ReadGift) {
+        this.isAddinggift = false;
         if (this.selectedgift?.id === gift.id) {
             this.op.hide();
             this.selectedgift = null;
@@ -268,6 +276,7 @@ resetFilters() {
                         this.gifts[updated].imagePath = updatedValues.imagePath ?? this.gifts[updated].imagePath;
                     }
                     this.hidePopover();
+                    this.cdr.markForCheck();
                 },
                 (error) => console.log('שגיאה:', error)
             );

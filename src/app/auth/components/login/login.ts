@@ -12,7 +12,8 @@ import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../../servieces/auth.service';
 import {  LoginUser } from '../../models/user-login.model';
 import { CardModule } from 'primeng/card';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ export class Login {
     
     fb = inject(FormBuilder);
     authService = inject(AuthService);
+    route = inject(Router); 
 
     loginForm: FormGroup = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -60,6 +62,7 @@ export class Login {
                     this.loginForm.reset();
                     this.formSubmitted = false;
                     console.log(response.token);
+                    this.route.navigate(['/gifts']);
                     
                 },
                 error: (error) => {

@@ -1,10 +1,30 @@
-<div class="grid grid-nogutter justify-content-center p-2 md:p-4">
-  <div *ngFor="let gift of gifts" class="col-12 md:col-6 lg:col-4 xl:col-3 p-3">
-    <app-single-gift [gift]="gift"></app-single-gift>
+<div class="p-4">
+  <div class="flex justify-content-center mb-5 gap-2 flex-wrap">
+    <p-button 
+      label="הכל" 
+      [outlined]="selectedCategory !== 'הכל'" 
+      (onClick)="filterByCategory('הכל')"
+      styleClass="border-round-pill">
+    </p-button>
+    
+    <ng-container *ngFor="let cat of getCategories()">
+      <p-button 
+        [label]="cat" 
+        [outlined]="selectedCategory !== cat" 
+        (onClick)="filterByCategory(cat)"
+        styleClass="border-round-pill">
+      </p-button>
+    </ng-container>
   </div>
 
-  <div *ngIf="gifts.length === 0" class="col-12 text-center p-8 surface-card border-round-xl shadow-1">
-    <i class="pi pi-box text-5xl text-400 mb-3"></i>
-    <p class="text-xl font-medium text-600">כרגע אין מתנות זמינות להגרלה.</p>
+  <div class="grid grid-nogutter justify-content-center">
+    <div *ngFor="let gift of filteredGifts" class="col-12 md:col-6 lg:col-4 xl:col-3 p-3">
+      <app-single-gift [gift]="gift"></app-single-gift>
+    </div>
+
+    <div *ngIf="filteredGifts.length === 0" class="col-12 text-center p-8 surface-card border-round-xl shadow-1">
+      <i class="pi pi-search text-5xl text-400 mb-3"></i>
+      <p class="text-xl font-medium text-600">לא נמצאו מתנות בקטגוריה זו.</p>
+    </div>
   </div>
 </div>
