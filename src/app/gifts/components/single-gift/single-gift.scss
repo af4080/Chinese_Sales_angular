@@ -1,16 +1,27 @@
 :host ::v-deep {
-    /* הגדרת רוחב מקסימלי כשהמתנה מוצגת לבד */
+    .p-card {
+        border-top: 5px solid #712059 !important; // דריסת הירוק/כחול בפס העליון
+        transition: transform 0.3s ease;
+        
+        &:hover {
+            transform: translateY(-10px);
+        }
+    }
+
+    // הגבלת רוחב לעמוד מוצר יחיד
     .single-gift-full {
-        max-width: 500px; /* זה ימנע את המריחה שראית בצילום המסך */
-        margin-top: 2rem;
+        max-width: 600px;
+        margin: 2rem auto;
     }
 
-    /* שמירה על יחס תמונה נכון */
-    .aspect-video {
-        aspect-ratio: 16 / 9;
+    // דריסת כפתור הוספה לסל (שלא יהיה ירוק)
+    .p-button-primary {
+        background: #712059 !important;
+        border: none !important;
     }
 
-    .p-card-body {
-        padding: 1.5rem;
+    .p-button-outlined {
+        color: #712059 !important;
+        border-color: #712059 !important;
     }
 }

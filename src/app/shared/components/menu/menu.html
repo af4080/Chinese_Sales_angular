@@ -25,5 +25,6 @@
 <p-drawer header="הסל שלי" 
           [(visible)]="visible" 
           position="left" 
+          (onShow)="basketRef.loadBasket()"
           styleClass="w-full md:w-25rem lg:w-40rem"> <app-basket #basketRef (onClose)="visible=false"></app-basket>
 </p-drawer>

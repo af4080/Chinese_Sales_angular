@@ -58,6 +58,7 @@ ngOnInit() {
        this.basketService.createBasket(basket).subscribe({
         next: (res) => {
           console.log('Gift added to basket:', res);
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error adding gift to basket:', err);
