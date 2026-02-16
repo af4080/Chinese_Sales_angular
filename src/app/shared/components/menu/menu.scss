@@ -1,2 +1,89 @@
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
+
+$brand-purple: #712059;
+
+// זה הפתרון לבעיית ה"מכסה" - יוצר שטח ריק בגובה של התפריט
+.header-placeholder {
+    height: 110px; // גובה זהה ל-min-height של התפריט
+}
+
+.header-wrapper {
+    position: fixed !important; // שיניתי ל-fixed ליציבות מקסימלית
+    top: 0;
+    left: 0;
+    z-index: 1000; // מוודא שהתפריט מעל הכל
+    width: 100%;
+    background: #ffffff;
+}
+
+::ng-deep {
+    .p-menubar {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center;
+        background: #ffffff !important;
+        border: none !important;
+        border-bottom: 5px solid $brand-purple !important; // קו סגול תחתון
+        padding: 0 2rem !important;
+        min-height: 110px;
+        direction: rtl;
+
+        .p-menubar-root-list {
+            margin-right: auto !important;
+            display: flex !important;
+            gap: 30px;
+        }
+
+        .nav-logo { height: 75px !important; }
+
+        // אייקונים גדולים
+        .force-big-icon, .p-menuitem-icon {
+            font-size: 2.2rem !important;
+            transform: scale(1.4) !important;
+            color: $brand-purple !important;
+            margin-left: 15px !important;
+        }
+
+        .p-menuitem-text {
+            font-size: 1.35rem !important;
+            font-weight: 800 !important;
+            color: $brand-purple !important;
+        }
+
+        // קו תחתי סגול ב-Hover
+        .menu-link-item {
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 0;
+                height: 4px;
+                background-color: $brand-purple;
+                transition: width 0.3s ease;
+            }
+            &:hover::after { width: 100%; }
+        }
+
+        // עיצוב הסל
+        .basket-fixed-row {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            .basket-icon-top {
+                font-size: 2.3rem !important;
+                color: $brand-purple;
+                margin-left: 10px;
+            }
+            .basket-text-top {
+                font-size: 1.25rem;
+                font-weight: 800;
+                color: $brand-purple;
+            }
+        }
+    }
+}

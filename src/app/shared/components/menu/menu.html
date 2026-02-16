@@ -1,8 +1,29 @@
-<div class="card">
-    <p-menubar [model]="items" />
+<div class="header-placeholder">
+    <div class="header-wrapper">
+        <p-menubar [model]="items">
+            <ng-template pTemplate="start">
+                <img src="logo.png" alt="זה לזה" class="nav-logo" />
+            </ng-template>
+
+            <ng-template pTemplate="item" let-item>
+                <a (click)="item.command ? item.command() : null" class="p-menuitem-link menu-link-item">
+                    <span [class]="item.icon" class="force-big-icon"></span>
+                    <span class="p-menuitem-text">{{ item.label }}</span>
+                </a>
+            </ng-template>
+
+            <ng-template pTemplate="end">
+                <div class="basket-fixed-row" (click)="visible = true" *ngIf="isLoggedIn && role === 'user'">
+                    <i class="pi pi-shopping-cart basket-icon-top"></i>
+                    <span class="basket-text-top">הסל שלי</span>
+                </div>
+            </ng-template>
+        </p-menubar>
+    </div>
 </div>
 
-<p-drawer header="הסל שלי" [(visible)]="visible" (onShow)="openBasket()" position="left" 
-          styleClass="w-full md:w-25rem lg:w-35rem">
-    <app-basket #basketRef (onClose)="visible=false"></app-basket>
+<p-drawer header="הסל שלי" 
+          [(visible)]="visible" 
+          position="left" 
+          styleClass="w-full md:w-25rem lg:w-40rem"> <app-basket #basketRef (onClose)="visible=false"></app-basket>
 </p-drawer>

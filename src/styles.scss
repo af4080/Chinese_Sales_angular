@@ -1,3 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
+:root {
+  --primary-color: #712059;      /* סגול עמוק מהלוגו */
+  --accent-color: #D4AF37;       /* זהב יוקרתי (Metallic Gold) */
+  --accent-hover: #B8860B;       /* זהב כהה יותר לריחוף */
+  --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F1D382 50%, #D4AF37 100%);
+  --border-radius: 20px;
+}
+
+/* אפקט נצנצים עדין לרקע של כרטיסים חגיגיים */
+.shimmer-effect {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+/* עיצוב כפתורי PrimeNG */
+.p-button {
+  border-radius: var(--border-radius) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease;
+
+
+  &.p-button-primary {
+    background: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+  }
+
+
+  &.p-button-secondary {
+    background: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+  }
+
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(113, 32, 89, 0.2);
+  }
+}
+
+
+/* עיצוב כרטיסים (Cards) של המכירה הסינית */
+.p-card {
+  border-radius: var(--border-radius) !important;
+  border: none !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04) !important;
+  overflow: hidden;
+}
+
