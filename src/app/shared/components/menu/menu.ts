@@ -42,7 +42,8 @@ export class Menu implements OnInit {
       },
       {
         label: 'בית',
-        icon: 'pi pi-home'
+        icon: 'pi pi-home',
+        command: () => this.router.navigate(['/home'])
       },
       {
         label: 'כל המתנות',
