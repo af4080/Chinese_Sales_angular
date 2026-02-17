@@ -1,12 +1,12 @@
 <div class="header-placeholder">
     <div class="header-wrapper">
-        <p-menubar [model]="items">
+        <p-menubar [model]="items" styleclass="pp">
             <ng-template pTemplate="start">
                 <img src="logo.png" alt="זה לזה" class="nav-logo" />
             </ng-template>
 
-            <ng-template pTemplate="item" let-item>
-                <a (click)="item.command ? item.command() : null" class="p-menuitem-link menu-link-item">
+            <ng-template pTemplate="item" let-item >
+                <a (click)="item.command ? item.command() : null" class="p-menuitem-link menu-link-item ">
                     <span [class]="item.icon" class="force-big-icon"></span>
                     <span class="p-menuitem-text">{{ item.label }}</span>
                 </a>

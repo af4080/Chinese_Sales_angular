@@ -6,7 +6,7 @@
 $brand-purple: #712059;
 
 .header-placeholder {
-    height: 110px; 
+    height: 110px;
 }
 
 .header-wrapper {
@@ -34,7 +34,7 @@ $brand-purple: #712059;
         .p-menubar-start {
             order: 1 !important; // ראשון בימין (בגלל RTL)
             margin-left: auto !important; // דוחף את כל מה שאחריו שמאלה
-            
+
             .nav-logo {
                 height: 85px !important;
                 display: block;
@@ -65,11 +65,13 @@ $brand-purple: #712059;
             align-items: center !important;
             padding: 10px 15px !important;
             text-decoration: none !important;
-            
+
             // הגדלת האייקון
-            .p-menuitem-icon, .force-big-icon, .pi {
+            .p-menuitem-icon,
+            .force-big-icon,
+            .pi {
                 color: $brand-purple !important;
-                font-size: 2rem !important; 
+                font-size: 2rem !important;
                 margin-left: 12px !important; // רווח בין אייקון לטקסט
                 margin-right: 0 !important;
             }
@@ -105,8 +107,15 @@ $brand-purple: #712059;
             font-weight: 800 !important;
         }
     }
-    .pi {
+
+    // .pi {
+    //     //  color: $brand-purple !important;
+    //     font-size: 1.2rem !important; // הגדלת האייקון
+    // }
+
+    .p-menubar-root-list {
+        .p-menuitem-link {
             color: $brand-purple !important;
-            font-size: 1.2rem !important; // הגדלת האייקון
         }
+    }
 }

@@ -131,3 +131,234 @@
     --primary-color: #712059;
     --primary-color-text: #ffffff;
 }
+/* PrimeNG and PrimeFlex Global Styles */
+@import 'primeicons/primeicons.css';
+@import 'primeflex/primeflex.css';
+
+
+/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+
+/* src/styles.scss */
+
+
+:root {
+  /* צבעי "זה לזה" שדגמנו מהלוגו */
+  --primary-color: #712059;      /* סגול עמוק מהלוגו */
+  --accent-color: #D4AF37;       /* זהב יוקרתי (Metallic Gold) */
+  --accent-hover: #B8860B;       /* זהב כהה יותר לריחוף */
+  --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F1D382 50%, #D4AF37 100%);
+  --border-radius: 20px;
+ 
+  /* צבעי רקע וטקסט לקו נקי */
+  --surface-ground: #f8f9fa;      /* רקע אפור בהיר מאוד */
+  // --text-color: #2d2d2d;
+  --text-secondary: #6c757d;
+ 
+  /* רדיוס פינות אחיד למראה מודרני */
+  --border-radius: 16px;
+}
+
+
+
+
+/* אפקט נצנצים עדין לרקע של כרטיסים חגיגיים */
+.shimmer-effect {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+
+
+
+
+/* עיצוב כפתורי PrimeNG */
+.p-button {
+  border-radius: var(--border-radius) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease;
+
+
+  &.p-button-primary {
+    background: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+  }
+
+
+  &.p-button-secondary {
+    background: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+  }
+
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(113, 32, 89, 0.2);
+  }
+}
+
+
+/* עיצוב כרטיסים (Cards) של המכירה הסינית */
+.p-card {
+  border-radius: var(--border-radius) !important;
+  border: none !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04) !important;
+  overflow: hidden;
+}
+
+
+/* src/styles.scss */
+
+
+/* עיצוב גלובלי לטבלאות PrimeNG בממשק הניהול */
+.p-datatable {
+    .p-datatable-header {
+        background: white;
+        color: var(--primary-color);
+        border: none;
+        padding: 1.5rem;
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+
+
+    .p-datatable-thead > tr > th {
+        background-color: #fcfafc; // סגול בהיר מאוד
+        color: var(--primary-color);
+        border-bottom: 2px solid #f0e6ef;
+        padding: 1rem;
+        font-weight: 600;
+    }
+
+
+    .p-datatable-tbody > tr {
+        transition: background-color 0.2s;
+       
+        &:hover {
+            background-color: rgba(212, 175, 55, 0.05) !important; // נגיעת זהב בריחוף
+        }
+    }
+
+
+    /* עיצוב ה-Paginator (דפדוף) */
+    .p-paginator {
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+        padding: 1rem;
+       
+        .p-paginator-pages .p-paginator-page.p-highlight {
+            background: var(--primary-color);
+            color: white;
+        }
+    }
+}
+
+
+/* שדרוג שדות הקלט (Inputs) */
+.p-inputtext:focus {
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
+}
+
+
+/* התאמות רספונסיביות למערכת הניהול */
+
+
+.admin-page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.table-container {
+    flex-grow: 1; /* מאפשר לטבלה לתפוס את הגובה הנותר */
+    background: white;
+}
+
+
+/* עיצוב המובייל של PrimeNG Stack */
+::ng-deep .p-datatable.p-datatable-stack {
+    .p-datatable-tbody > tr > td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        width: 100% !important;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 0.75rem 1rem !important;
+
+
+        .p-column-title {
+            display: block; // מציג את כותרת העמודה ליד הערך בנייד
+            margin-right: 1rem;
+            color: #999;
+            font-size: 0.8rem;
+        }
+    }
+}
+
+
+/* הסתרת עמודות פחות חשובות בנייד כדי למנוע עומס */
+@media screen and (max-width: 960px) {
+    .hidden-mobile {
+        display: none !important;
+    }
+}
+
+
+/* עיצוב זהב יוקרתי לכפתורים */
+.btn-accent-zlz {
+    background: linear-gradient(135deg, #D4AF37 0%, #F1D382 100%) !important;
+    border: none !important;
+    color: #4a3a05 !important;
+}
+
+
+/* עיצוב עמודת התיאור למניעת "קפיצות" בגובה */
+.description-cell {
+    max-width: 250px;       /* הגבלת רוחב מקסימלי */
+    white-space: nowrap;    /* מניעת ירידת שורה */
+    overflow: hidden;       /* הסתרת טקסט חורג */
+    text-overflow: ellipsis; /* הוספת שלוש נקודות (...) בסוף */
+    display: block;
+}
+
+
+/* אופציונלי: הצגת התיאור המלא רק בריחופ (Tooltip טבעי) */
+.description-cell:hover {
+    cursor: help;
+}
+
+
+/* הבטחת גובה אחיד לכל השורות בטבלה */
+::ng-deep .p-datatable-tbody > tr {
+    height: 70px; /* גובה קבוע לכל השורות */
+}
+
+
+::ng-deep .p-datatable-tbody > tr > td {
+    padding: 0.5rem 1rem !important;
+    vertical-align: middle; /* מרכז את התוכן אנכית */
+}
+
