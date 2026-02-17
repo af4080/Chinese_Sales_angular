@@ -1,18 +1,19 @@
+/* menu.scss */
+
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
 
 $brand-purple: #712059;
 
-// זה הפתרון לבעיית ה"מכסה" - יוצר שטח ריק בגובה של התפריט
 .header-placeholder {
-    height: 110px; // גובה זהה ל-min-height של התפריט
+    height: 110px; 
 }
 
 .header-wrapper {
-    position: fixed !important; // שיניתי ל-fixed ליציבות מקסימלית
+    position: fixed !important;
     top: 0;
     left: 0;
-    z-index: 1000; // מוודא שהתפריט מעל הכל
+    z-index: 1000;
     width: 100%;
     background: #ffffff;
 }
@@ -20,70 +21,92 @@ $brand-purple: #712059;
 ::ng-deep {
     .p-menubar {
         display: flex !important;
-        flex-wrap: nowrap !important;
+        flex-direction: row !important; // מבטיח שורה
         align-items: center;
         background: #ffffff !important;
         border: none !important;
-        border-bottom: 5px solid $brand-purple !important; // קו סגול תחתון
+        border-bottom: 5px solid $brand-purple !important;
         padding: 0 2rem !important;
         min-height: 110px;
         direction: rtl;
 
+        // 1. הלוגו בצד ימין
+        .p-menubar-start {
+            order: 1 !important; // ראשון בימין (בגלל RTL)
+            margin-left: auto !important; // דוחף את כל מה שאחריו שמאלה
+            
+            .nav-logo {
+                height: 85px !important;
+                display: block;
+            }
+        }
+
+        // 2. רשימת התפריט באמצע/שמאל
         .p-menubar-root-list {
-            margin-right: auto !important;
+            order: 2 !important;
             display: flex !important;
-            gap: 30px;
+            flex-direction: row !important;
+            gap: 25px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
         }
 
-        .nav-logo { height: 75px !important; }
-
-        // אייקונים גדולים
-        .force-big-icon, .p-menuitem-icon {
-            font-size: 2.2rem !important;
-            transform: scale(1.4) !important;
-            color: $brand-purple !important;
-            margin-left: 15px !important;
+        // 3. כפתור הסל בצד שמאל קיצוני
+        .p-menubar-end {
+            order: 3 !important;
+            margin-right: 20px !important;
         }
 
-        .p-menuitem-text {
-            font-size: 1.35rem !important;
-            font-weight: 800 !important;
-            color: $brand-purple !important;
-        }
-
-        // קו תחתי סגול ב-Hover
-        .menu-link-item {
-            position: relative;
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: -5px;
-                left: 0;
-                width: 0;
-                height: 4px;
-                background-color: $brand-purple;
-                transition: width 0.3s ease;
+        // עיצוב הכפתורים (אייקון + טקסט)
+        .p-menuitem-link {
+            display: flex !important;
+            align-items: center !important;
+            padding: 10px 15px !important;
+            text-decoration: none !important;
+            
+            // הגדלת האייקון
+            .p-menuitem-icon, .force-big-icon, .pi {
+                color: $brand-purple !important;
+                font-size: 2rem !important; 
+                margin-left: 12px !important; // רווח בין אייקון לטקסט
+                margin-right: 0 !important;
             }
-            &:hover::after { width: 100%; }
-        }
 
-        // עיצוב הסל
-        .basket-fixed-row {
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
-            cursor: pointer;
-            white-space: nowrap;
-            .basket-icon-top {
-                font-size: 2.3rem !important;
-                color: $brand-purple;
-                margin-left: 10px;
+            // הגדלת הטקסט
+            .p-menuitem-text {
+                color: $brand-purple !important;
+                font-size: 1.5rem !important;
+                font-weight: 800 !important;
             }
-            .basket-text-top {
-                font-size: 1.25rem;
-                font-weight: 800;
-                color: $brand-purple;
+
+            &:hover {
+                background: rgba($brand-purple, 0.05) !important;
+                border-radius: 12px;
             }
         }
     }
+
+    // עיצוב הסל במידה והוא ב-End
+    .basket-fixed-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: $brand-purple !important;
+        cursor: pointer;
+
+        .basket-icon-top {
+            font-size: 2.2rem !important;
+        }
+
+        .basket-text-top {
+            font-size: 1.5rem !important;
+            font-weight: 800 !important;
+        }
+    }
+    .pi {
+            color: $brand-purple !important;
+            font-size: 1.2rem !important; // הגדלת האייקון
+        }
 }
