@@ -28,6 +28,7 @@ export class Lottery {
   beforeLottery=true;
   cdr = inject(ChangeDetectorRef);
   ngOnInit() {
+    this.message = 'טוען זוכים...';
     this.loadWinners();
   }
 
@@ -38,7 +39,14 @@ export class Lottery {
           `זוכה: ${winner.winnerName}, מתנה: ${winner.giftName}`
         );
         if (this.winners.length > 0) {
+          this.afterLottery=true;
+          this.beforeLottery=false;
+          this.message = '';
           this.isLoading = true;
+        }
+        else {
+          this.message = 'לא נמצאו זוכים עדיין';
+          this.isLoading = false;
         }
         console.log('Winners loaded successfully');
         this.cdr.detectChanges();
@@ -95,6 +103,8 @@ export class Lottery {
       this.lotteryService.startNewChineseSale().subscribe({
         next: (res) => {
           alert('המכירה אופסה בהצלחה');
+          this.afterLottery=false;
+          this.beforeLottery=true;
           this.loadWinners(); // טעינת רשימת הזוכים לאחר האיפוס
           this.cdr.detectChanges();
           this.isLoading = false;

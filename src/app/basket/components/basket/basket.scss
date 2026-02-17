@@ -1,16 +1,45 @@
+/* basket.scss */
+
+// הגדרת משתני צבע
+$purple-brand: #712059;
+$purple-hover: #5a1a47;
+
 .basket-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 1rem;
+    box-sizing: border-box;
     background-color: #fcfcfc;
-    direction: rtl; // מבטיח יישור נכון לימין
+    direction: rtl;
 }
 
 .basket-card {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
     background: white;
     border: 1px solid #f0f0f0;
     transition: all 0.2s ease;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    padding: 0.5rem;
+    gap: 0.5rem;
 
     &:hover {
-        border-color: var(--primary-color);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        border-color: $purple-brand;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .flex-grow-1 {
+        min-width: 0; // מונע מהטקסט לדחוף את הפח החוצה
+        
+        .text-900 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 }
 
@@ -19,20 +48,7 @@
     height: 80px;
     object-fit: cover;
     display: block;
-}
-
-.quantity-selector {
-    ::ng-deep {
-        .p-button.p-button-sm {
-            width: 2rem;
-            height: 2rem;
-            background: #f1f5f9;
-            border: none;
-            color: #475569;
-            
-            &:hover { background: #e2e8f0; }
-        }
-    }
+    border-radius: 6px;
 }
 
 .amount-badge {
@@ -43,17 +59,12 @@
 }
 
 .footer-card {
-    border-top: 4px solid var(--primary-color);
+    border-top: 4px solid $purple-brand;
+    background-color: #f8fafc;
 }
 
-.checkout-btn {
-    background: #10b981 !important; // ירוק מרענן כמו בתמונה
-    border: none !important;
-}
-
-// ביטול הסקרולר האופקי המציק
 .custom-scroll {
-    overflow-x: hidden !important;
+    overflow-y: auto;
     &::-webkit-scrollbar {
         width: 4px;
     }
@@ -62,17 +73,60 @@
         border-radius: 10px;
     }
 }
-.basket-wrapper {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden; // מונע את הסקרולר האופקי שראינו בתמונה
-    padding: 1rem;
-    box-sizing: border-box;
-}
 
-.basket-card {
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap; // מוודא שכל הפריטים נשארים בשורה אחת
-    align-items: center;
+// דריסות רכיבי PrimeNG בתוך הסל
+:host ::ng-deep {
+    
+    // כפתור התשלום וכל כפתור ראשי
+    .p-button.checkout-btn,
+    .p-button.p-button-primary,
+    .p-button.p-button-success {
+        background-color: $purple-brand !important;
+        border-color: $purple-brand !important;
+        color: #ffffff !important;
+        font-weight: 800 !important;
+
+        &:hover {
+            background-color: $purple-hover !important;
+        }
+    }
+
+    // כפתור המחיקה (הפח) - סגול ובולט
+    .p-button.p-button-danger {
+        color: $purple-brand !important; 
+        background: white !important; // רקע לבן כדי שיבלוט מעל הכל
+        border: 1px solid rgba($purple-brand, 0.2) !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important; // צל קטן להפרדה
+        border-radius: 50% !important;
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+
+        &:hover {
+            background: #fdfaf5 !important;
+            transform: scale(1.05);
+        }
+
+        .p-button-icon {
+            color: $purple-brand !important;
+        }
+    }
+
+    // כפתור ה-Refresh למעלה
+    .p-button.p-button-text:not(.p-button-danger) {
+        color: $purple-brand !important;
+        &:hover {
+            background: rgba(113, 32, 89, 0.06) !important;
+        }
+    }
+
+    // כפתורי הפלוס והמינוס
+    .quantity-selector .p-button {
+        background: #f1f5f9 !important;
+        color: $purple-brand !important;
+        border: none !important;
+        
+        &:hover {
+            background: #e2e8f0 !important;
+        }
+    }
 }

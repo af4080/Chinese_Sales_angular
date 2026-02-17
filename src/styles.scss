@@ -1,10 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
+
 :root {
-  --primary-color: #712059;      /* סגול עמוק מהלוגו */
-  --accent-color: #D4AF37;       /* זהב יוקרתי (Metallic Gold) */
-  --accent-hover: #B8860B;       /* זהב כהה יותר לריחוף */
+  --primary-color: #712059;
+  /* סגול עמוק מהלוגו */
+  --accent-color: #D4AF37;
+  /* זהב יוקרתי (Metallic Gold) */
+  --accent-hover: #B8860B;
+  /* זהב כהה יותר לריחוף */
   --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F1D382 50%, #D4AF37 100%);
   --border-radius: 20px;
 }
@@ -16,8 +20,11 @@
 }
 
 @keyframes shimmer {
-  to { background-position: 200% center; }
+  to {
+    background-position: 200% center;
+  }
 }
+
 /* עיצוב כפתורי PrimeNG */
 .p-button {
   border-radius: var(--border-radius) !important;
@@ -52,3 +59,75 @@
   overflow: hidden;
 }
 
+/* דריסה גלובלית של כפתורי PrimeNG */
+::ng-deep {
+
+  /* כפתור מלא - יהיה זהב */
+  .p-button.p-button-primary {
+    background: var(--accent-color) !important;
+    /* משתמש בזהב שהגדרת ב-root */
+    border-color: var(--accent-color) !important;
+    color: #ffffff !important;
+
+    &:hover {
+      background: var(--accent-hover) !important;
+      border-color: var(--accent-hover) !important;
+    }
+  }
+
+  /* כפתור עם מסגרת (Outlined) - טקסט ומסגרת בזהב */
+  .p-button.p-button-outlined {
+    color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    background: transparent !important;
+
+    &:hover {
+      background: rgba(212, 175, 55, 0.1) !important;
+      /* רקע זהב שקוף בריחוף */
+      color: var(--accent-hover) !important;
+      border-color: var(--accent-hover) !important;
+    }
+  }
+
+  /* תיקון צבע האייקונים בתוך הכפתורים */
+  .p-button .p-button-icon {
+    color: inherit !important;
+  }
+}
+/* styles.scss */
+
+/* דריסת הצבע הירוק (Success) בכל האתר */
+.p-button.p-button-success, 
+.p-button.p-button-primary,
+[pButton].p-button-success {
+    background-color: #D4AF37 !important; /* זהב */
+    border-color: #D4AF37 !important;
+    color: #ffffff !important;
+}
+
+/* דריסת צבע הטקסט הראשי של PrimeNG (הירוק הדיפולטי) */
+.text-primary {
+    color: #712059 !important; /* סגול המותג שלך */
+}
+
+/* דריסת כפתורי ה-Outline */
+.p-button-outlined.p-button-primary,
+.p-button-outlined.p-button-success {
+    color: #D4AF37 !important;
+    border-color: #D4AF37 !important;
+    background: transparent !important;
+    
+    &:hover {
+        background: rgba(212, 175, 55, 0.1) !important;
+    }
+}
+/* styles.scss - פתרון גלובלי לכל האתר */
+.p-button.p-button-success, .p-button.p-button-primary {
+    background-color: #712059 !important;
+    color: #ffffff !important;
+    border-color: #712059 !important;
+}
+:root {
+    --primary-color: #712059;
+    --primary-color-text: #ffffff;
+}

@@ -1,13 +1,15 @@
 <div class="basket-wrapper p-3 flex flex-column h-full">
-    
+
     <div class="flex justify-content-between align-items-center mb-4">
         <h2 class="text-xl font-bold m-0">הפריטים שלי ({{ basketItems.length }})</h2>
-        <p-button icon="pi pi-refresh" [rounded]="true" [text]="true" (onClick)="loadBasket()" [loading]="loading"></p-button>
+        <p-button icon="pi pi-refresh" [rounded]="true" [text]="true" (onClick)="loadBasket()"
+            [loading]="loading"></p-button>
     </div>
 
     <div class="flex-grow-1 overflow-y-auto custom-scroll">
-        <div *ngFor="let item of basketItems" class="basket-card flex align-items-center p-2 mb-3 border-round shadow-1">
-            
+        <div *ngFor="let item of basketItems"
+            class="basket-card flex align-items-center p-2 mb-3 border-round shadow-1">
+
             <div class="relative">
                 <img [src]="item.gift.imagePath" class="product-img border-round" [alt]="item.gift.name">
             </div>
@@ -15,11 +17,13 @@
             <div class="flex-grow-1 px-3">
                 <div class="text-900 font-bold mb-1">{{ item.gift.name }}</div>
                 <div class="text-primary font-semibold mb-2">{{ item.gift.price | currency:'ILS' }}</div>
-                
+
                 <div class="flex align-items-center quantity-selector">
-                    <p-button icon="pi pi-minus" [rounded]="true" size="small" (onClick)="updateAmount(item, -1)" [disabled]="item.amount <= 1"></p-button>
+                    <p-button icon="pi pi-minus" [rounded]="true" size="small" (onClick)="updateAmount(item, -1)"
+                        [disabled]="item.amount <= 1"></p-button>
                     <span class="amount-badge">{{ item.amount }}</span>
-                    <p-button icon="pi pi-plus" [rounded]="true" size="small" (onClick)="updateAmount(item, 1)"></p-button>
+                    <p-button icon="pi pi-plus" [rounded]="true" size="small"
+                        (onClick)="updateAmount(item, 1)"></p-button>
                 </div>
             </div>
 
@@ -39,9 +43,12 @@
             <span class="text-xl font-black">סה"כ:</span>
             <span class="text-2xl font-black text-primary">{{ totalSum | currency:'ILS' }}</span>
         </div>
-        <p-button label="מעבר לקופה" icon="pi pi-shopping-bag"
-         styleClass="w-full p-3 font-bold checkout-btn" 
-         [rounded]="true"
-         (onClick)="buyAll()"></p-button>
+            <p-button label="מעבר לקופה" 
+          icon="pi pi-shopping-bag"
+          class="checkout-btn-wrapper"
+          styleClass="checkout-btn w-full p-button-lg border-round-lg shadow-2"
+          [rounded]="true"
+          (onClick)="buyAll()">
+</p-button>
     </div>
 </div>
