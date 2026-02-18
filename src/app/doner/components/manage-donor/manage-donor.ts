@@ -13,10 +13,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UpdateDonner } from '../../model/doner-update.model';
 import { CreateDonner } from '../../model/doner-create.model';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-manage-donor',
-  imports: [PopoverModule, TableModule, ButtonModule, TagModule, CommonModule, ReactiveFormsModule,InputTextModule],
+  imports: [PopoverModule, TableModule, ButtonModule, TagModule, CommonModule, ReactiveFormsModule,InputTextModule, ToastModule],
   templateUrl: './manage-donor.html',
   styleUrl: './manage-donor.scss',
   providers: [MessageService]

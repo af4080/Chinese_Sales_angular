@@ -21,7 +21,7 @@ $brand-purple: #712059;
 ::ng-deep {
     .p-menubar {
         display: flex !important;
-        flex-direction: row !important; // מבטיח שורה
+        flex-direction: row !important;
         align-items: center;
         background: #ffffff !important;
         border: none !important;
@@ -32,8 +32,8 @@ $brand-purple: #712059;
 
         // 1. הלוגו בצד ימין
         .p-menubar-start {
-            order: 1 !important; // ראשון בימין (בגלל RTL)
-            margin-left: auto !important; // דוחף את כל מה שאחריו שמאלה
+            order: 1 !important;
+            margin-left: auto !important;
 
             .nav-logo {
                 height: 85px !important;
@@ -41,7 +41,7 @@ $brand-purple: #712059;
             }
         }
 
-        // 2. רשימת התפריט באמצע/שמאל
+        // 2. רשימת התפריט (Desktop)
         .p-menubar-root-list {
             order: 2 !important;
             display: flex !important;
@@ -53,30 +53,28 @@ $brand-purple: #712059;
             border: none !important;
         }
 
-        // 3. כפתור הסל בצד שמאל קיצוני
+        // 3. כפתור הסל בצד שמאל
         .p-menubar-end {
             order: 3 !important;
             margin-right: 20px !important;
         }
 
-        // עיצוב הכפתורים (אייקון + טקסט)
+        // עיצוב קישורי התפריט
         .p-menuitem-link {
             display: flex !important;
             align-items: center !important;
             padding: 10px 15px !important;
             text-decoration: none !important;
 
-            // הגדלת האייקון
             .p-menuitem-icon,
             .force-big-icon,
             .pi {
                 color: $brand-purple !important;
                 font-size: 2rem !important;
-                margin-left: 12px !important; // רווח בין אייקון לטקסט
+                margin-left: 12px !important;
                 margin-right: 0 !important;
             }
 
-            // הגדלת הטקסט
             .p-menuitem-text {
                 color: $brand-purple !important;
                 font-size: 1.5rem !important;
@@ -88,9 +86,68 @@ $brand-purple: #712059;
                 border-radius: 12px;
             }
         }
+
+        /* --- הגדרות רספונסיביות (מובייל) --- */
+        @media screen and (max-width: 960px) {
+            min-height: 80px !important;
+            padding: 0 1rem !important;
+            position: relative;
+
+            .p-menubar-button {
+                display: flex !important;
+                order: 2 !important; // המבורגר ליד הלוגו
+                color: $brand-purple !important;
+                margin-left: 10px !important;
+            }
+
+            .p-menubar-start {
+                order: 1 !important;
+                .nav-logo { height: 60px !important; }
+            }
+
+            .p-menubar-end {
+                order: 3 !important;
+                margin-right: auto !important; // דוחף את הסל לשמאל הקיצוני
+            }
+
+            // הפיכת רשימת התפריט לקופסה צפה אטומה
+            .p-menubar-root-list {
+                display: none !important; 
+                flex-direction: column !important;
+                position: absolute !important;
+                top: 100% !important; 
+                right: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                background: #ffffff !important; // רקע לבן אטום
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
+                padding: 1rem 0 !important;
+                z-index: 10000 !important;
+                border-bottom: 4px solid $brand-purple !important;
+                gap: 0 !important;
+            }
+
+            &.p-menubar-mobile-active .p-menubar-root-list {
+                display: flex !important;
+            }
+
+            .p-menuitem {
+                width: 100% !important;
+                border-bottom: 1px solid #f0f0f0 !important;
+
+                .p-menuitem-link {
+                    padding: 1.2rem 2rem !important;
+                    justify-content: flex-start !important;
+                    
+                    .p-menuitem-text {
+                        font-size: 1.3rem !important;
+                    }
+                }
+            }
+        }
     }
 
-    // עיצוב הסל במידה והוא ב-End
+    /* שמירה על עיצוב האייקונים והסל */
     .basket-fixed-row {
         display: flex;
         align-items: center;
@@ -98,57 +155,13 @@ $brand-purple: #712059;
         color: $brand-purple !important;
         cursor: pointer;
 
-        .basket-icon-top {
-            font-size: 2.2rem !important;
-        }
-
-        .basket-text-top {
-            font-size: 1.5rem !important;
-            font-weight: 800 !important;
-        }
+        .basket-icon-top { font-size: 2.2rem !important; }
+        .basket-text-top { font-size: 1.5rem !important; font-weight: 800 !important; }
     }
 
-    .pi-slack {
+    .pi-slack, .pi-home, .pi-gift, .pi-user-minus, .pi-user-plus, 
+    .pi-sparkles, .pi-wallet, .pi-building-columns, .pi-shopping-cart {
         color: $brand-purple !important;
-        font-size: 1.2rem !important; // הגדלת האייקון
-    }
-    .pi-home{
-        color: $brand-purple !important;
-        font-size: 1.2rem !important; // הגדלת האייקון
-    }
-    .pi-gift {
-        color: $brand-purple !important;
-        font-size: 1.2rem !important; // הגדלת האייקון
-    } 
-    .pi-user-minus {
-        color: $brand-purple !important;
-        font-size: 1.2rem !important; // הגדלת האייקון
-    }
-    .pi-user-plus {
-        color: $brand-purple !important;
-        font-size: 1.2rem !important; // הגדלת האייקון
-    } 
-    .pi-sparkles {
-        color: $brand-purple !important;
-        font-size: 1.2rem !important; // הגדלת האייקון
-    } 
-    .pi-wallet {
-        color: $brand-purple !important;
-        font-size: 1.2rem !important; // הגדלת האייקון
-    }
-    .pi-building-columns {
-        color: $brand-purple !important;
-        font-size: 1.2rem !important; // הגדלת האייקון
-    }
-    .pi-shopping-cart {
-        color: $brand-purple !important;
-        font-size: 1.2rem !important; // הגדלת האייקון
-    }
-
-
-    .p-menubar-root-list {
-        .p-menuitem-link {
-            color: $brand-purple !important;
-        }
+        font-size: 1.2rem !important;
     }
 }

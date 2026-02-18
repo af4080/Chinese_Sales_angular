@@ -10,8 +10,8 @@
 
         <div class="flex flex-column gap-2 pt-2 text-center">
             <div class="text-xl font-bold text-primary mb-2 h-3rem overflow-hidden">
-                <a *ngIf="!isFullPage" [routerLink]="['/gifts', gift?.name]">{{ gift?.name }}</a>
-                <span *ngIf="isFullPage">{{ gift?.name }}</span>
+                <a *ngIf="!isFullPage" [routerLink]="['/gifts', gift.name]">{{ gift.name }}</a>
+                <span *ngIf="isFullPage">{{ gift.name }}</span>
             </div>
 
         
@@ -23,7 +23,7 @@
             <div class="flex flex-column align-items-center justify-content-center mt-auto pt-3 border-top-1 border-100 surface-50 border-round">
                 <span class="text-sm text-500 font-medium mb-1">כרטיס להגרלה ב-</span>
                 <span [class]="isFullPage ? 'text-5xl font-bold' : 'text-3xl font-bold'" style="color: #d4af37;">
-                    {{ gift?.price | currency:'ILS':'symbol':'1.0-0' }}
+                    {{ gift.price | currency:'ILS':'symbol':'1.0-0' }}
                 </span>
             </div>
 
