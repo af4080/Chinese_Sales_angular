@@ -18,18 +18,23 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CategoryService } from '../../../category/servieces/category-service';
 import { ReadCategory } from '../../../category/models/read-category.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { ToastModule } from 'primeng/toast';
+import { CardModule } from 'primeng/card';
 
 
 @Component({
     selector: 'app-manage-gift',
-    imports: [PopoverModule, TableModule,
+    imports: [ReactiveFormsModule,
+        CommonModule,
+        PopoverModule,
+        TableModule,
         ButtonModule,
         TagModule,
-        CommonModule,
-        ReactiveFormsModule,
         InputTextModule,
+        ToastModule,
         AutoCompleteModule,
-        FormsModule],
+        FormsModule,
+        CardModule],
     templateUrl: './manage-gifts.html',
     styleUrl: './manage-gifts.scss',
     providers: [MessageService]
