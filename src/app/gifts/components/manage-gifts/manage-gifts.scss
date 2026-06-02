@@ -1,0 +1,145 @@
+
+/* manage-gifts.scss */
+
+.admin-page-wrapper {
+    background-color: #fdfbfd;
+    min-height: 100vh;
+}
+
+.filter-card {
+    border-right: 4px solid var(--accent-color) !important;
+}
+
+.custom-table {
+    .p-datatable-thead > tr > th {
+        background: #f8f5f8 !important;
+        color: var(--primary-color) !important;
+        padding: 1.25rem 1rem !important;
+        border-bottom: 2px solid #eee !important;
+    }
+
+    .p-datatable-tbody > tr > td {
+        padding: 1rem !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+    }
+}
+
+.text-gold {
+    color: var(--accent-color);
+}
+
+.btn-accent-zlz {
+    background: var(--gold-gradient) !important;
+    border: none !important;
+    color: #4a3a05 !important;
+    font-weight: bold !important;
+}
+
+.hover\:bg-faded-gold:hover {
+    background-color: rgba(212, 175, 55, 0.04) !important;
+}
+
+/* מאפשר לדף לתפוס את כל הגובה ולנהל גלילה */
+.admin-page-wrapper {
+    min-height: 100vh;
+    background-color: #fdfbfd;
+}
+
+/* הגדרות לטבלה עם גלילה רוחבית */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* מאפשר גלילה רוחבית ברמת הדיב העוטף */
+    -webkit-overflow-scrolling: touch; /* גלילה חלקה באייפון */
+    border-radius: 12px;
+}
+
+/* הבטחת רוחב מינימלי לטבלה כדי שלא תצטמק */
+::ng-deep .custom-table {
+    .p-datatable-wrapper {
+        overflow-x: auto;
+    }
+
+    /* הגדרת רוחב מינימלי לכל הטבלה במסכים קטנים */
+    table {
+        min-width: 900px; /* זה מבטיח שהטבלה לא תצטופף פחות מזה */
+    }
+
+    .p-datatable-thead > tr > th {
+        background: #f8f5f8 !important;
+        color: var(--primary-color) !important;
+        white-space: nowrap; /* מונע מטקסט הכותרת לרדת שורה */
+        padding: 1rem !important;
+    }
+
+    .p-datatable-tbody > tr > td {
+        padding: 0.75rem 1rem !important;
+        white-space: nowrap; /* שומר על התוכן בשורה אחת */
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
+/* עיצוב כפתור הזהב */
+.btn-accent-zlz {
+    background: linear-gradient(135deg, #D4AF37 0%, #F1D382 100%) !important;
+    border: none !important;
+    color: #4a3a05 !important;
+    font-weight: bold !important;
+    white-space: nowrap;
+}
+
+/* התאמת פופאפים למובייל */
+::ng-deep .p-popover {
+    max-width: 95vw !important;
+    
+    .p-popover-content {
+        padding: 0;
+    }
+}
+
+/* קיצור תיאור ארוך בטבלה */
+.text-truncate {
+    max-width: 200px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+/* צבע סגול מותאם אישית לפי משתנה המערכת */
+.text-purple-zlz {
+    color: var(--primary-color) !important; /* משתמש בצבע הסגול שהגדרת ב-styles.scss */
+}
+
+/* הבטחת צבע סגול גם בתוך תגיות אם ישנן */
+::ng-deep .p-tag {
+    background: transparent;
+    color: var(--primary-color) !important;
+    border: 1px solid var(--primary-color);
+}
+
+/* דריסת משתני ה-CSS הפנימיים של PrimeNG עבור הפג'ינציה */
+::ng-deep .p-paginator {
+    .p-paginator-pages {
+        .p-paginator-page.p-highlight {
+            /* שינוי צבע הרקע למצב פעיל (לא hover) */
+            background-color: var(--primary-color) !important;
+            color: #ffffff !important;
+            border-color: var(--primary-color) !important;
+            
+            /* בחלק מהגרסאות PrimeNG משתמשת במשתנה הזה */
+            --p-paginator-page-selected-background: var(--primary-color) !important;
+            --p-paginator-page-selected-color: #ffffff !important;
+        }
+    }
+}
+
+/* ביטול הצבע הירוק שמופיע כ"הילה" סביב המספר */
+::ng-deep .p-paginator-page:focus {
+    box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.2) !important; /* סגול שקוף במקום ירוק */
+}
+
+::ng-deep .p-paginator-page.p-highlight:active {
+    background-color: var(--primary-color) !important;
+}

@@ -1,0 +1,27 @@
+:host ::v-deep {
+    .p-card {
+        border-top: 5px solid #712059 !important; // דריסת הירוק/כחול בפס העליון
+        transition: transform 0.3s ease;
+        
+        &:hover {
+            transform: translateY(-10px);
+        }
+    }
+
+    // הגבלת רוחב לעמוד מוצר יחיד
+    .single-gift-full {
+        max-width: 600px;
+        margin: 2rem auto;
+    }
+
+    // דריסת כפתור הוספה לסל (שלא יהיה ירוק)
+    .p-button-primary {
+        background: #712059 !important;
+        border: none !important;
+    }
+
+    .p-button-outlined {
+        color: #712059 !important;
+        border-color: #712059 !important;
+    }
+}

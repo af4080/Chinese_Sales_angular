@@ -1,0 +1,87 @@
+<p-toast></p-toast>
+
+<div class="admin-page-wrapper p-3 md:p-5" dir="rtl">
+  <div class="flex justify-content-between align-items-center mb-4">
+    <h2 class="text-3xl font-bold m-0" style="color: var(--primary-color);">ניהול תורמים</h2>
+    <p-button 
+      icon="pi pi-plus" 
+      label="הוספת תורם" 
+      (onClick)="openAddDonorDialog($event)"
+      styleClass="btn-accent-zlz shadow-2"
+    ></p-button>
+  </div>
+
+  <div class="table-container shadow-3 border-round-xl overflow-hidden">
+    <p-table [value]="donors" [paginator]="true" [rows]="10" styleClass="p-datatable-sm">
+      <ng-template #header>
+        <tr>
+          <th class="w-1/6">ת"ז</th>
+          <th class="w-1/6">שם</th>
+          <th class="w-1/6">מייל</th>
+          <th class="w-1/6">טלפון</th>
+          <th class="w-1/6 text-center">עריכה</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-donor>
+        <tr>
+          <td>{{ donor.id }}</td>
+          <td class="font-bold" style="color: var(--primary-color);">{{ donor.name }}</td>
+          <td>{{ donor.email }}</td>
+          <td>{{ donor.phone }}</td>
+          <td class="text-center">
+            <p-button (onClick)="displayDonor($event, donor)" icon="pi pi-pencil" 
+                      styleClass="p-button-rounded p-button-text p-button-secondary"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <p-popover #addOp (onHide)="closeAddDonorDialog()" [style]="{'width': '90vw', 'max-width': '350px'}">
+    <ng-template #content>
+      <div class="p-2">
+        <h3 class="text-lg font-bold mb-3" style="color: var(--primary-color);">הוספת תורם חדש</h3>
+        <form [formGroup]="addDonorForm" class="flex flex-column gap-2">
+          <div>
+            <input pInputText type="text" formControlName="name" class="w-full p-inputtext-sm" placeholder="שם מלא *" />
+          </div>
+          <div>
+            <input pInputText type="email" formControlName="email" class="w-full p-inputtext-sm" placeholder="אימייל *" />
+          </div>
+          <div>
+            <input pInputText type="text" formControlName="phone" class="w-full p-inputtext-sm" placeholder="טלפון *" maxlength="10" />
+          </div>
+          
+          <div class="flex gap-2 mt-2">
+            <p-button icon="pi pi-check" label="הוסף" class="flex-grow-1" styleClass="btn-accent-zlz p-button-sm"
+                      (onClick)="addDonor()" [disabled]="!addDonorForm.valid" />
+            <p-button icon="pi pi-times" severity="secondary" outlined styleClass="p-button-sm" (onClick)="closeAddDonorDialog()" />
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </p-popover>
+
+  <p-popover #op (onHide)="selectedDonor = null" [style]="{'width': '90vw', 'max-width': '350px'}">
+    <ng-template #content>
+      <div *ngIf="selectedDonor" class="p-2">
+        <h3 class="text-lg font-bold mb-3" style="color: var(--primary-color);">עריכת פרטי תורם</h3>
+        <form [formGroup]="donorForm" class="flex flex-column gap-2">
+          <input pInputText type="text" formControlName="name" class="w-full p-inputtext-sm" [placeholder]="selectedDonor.name" />
+          <input pInputText type="email" formControlName="email" class="w-full p-inputtext-sm" [placeholder]="selectedDonor.email" />
+          <input pInputText type="text" formControlName="phone" class="w-full p-inputtext-sm" [placeholder]="selectedDonor.phone" maxlength="10" />
+          
+          <div class="flex justify-between text-xs text-500 mt-1">
+            <span>מזהה מערכת:</span>
+            <span>{{ selectedDonor.id }}</span>
+          </div>
+
+          <div class="flex gap-2 mt-3 pt-2 border-top-1 border-100">
+            <p-button icon="pi pi-save" label="עדכן" class="flex-grow-1" styleClass="btn-accent-zlz p-button-sm" (onClick)="updateDonor()" />
+            <p-button icon="pi pi-trash" severity="danger" outlined styleClass="p-button-sm" (onClick)="deleteDonor()" />
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </p-popover>
+</div>

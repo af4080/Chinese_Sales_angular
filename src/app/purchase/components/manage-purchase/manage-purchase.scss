@@ -1,0 +1,29 @@
+
+.text-gold {
+    color: #D4AF37 !important; /* צבע הזהב היוקרתי מהלוגו */
+}
+
+.text-purple-zlz {
+    color: var(--primary-color) !important;
+}
+
+.bg-purple-50 {
+    background-color: rgba(113, 32, 89, 0.08) !important;
+}
+
+/* התאמות לטבלה */
+::ng-deep .custom-table {
+    .p-datatable-thead > tr > th {
+        background-color: #fcfafc !important;
+        color: var(--primary-color) !important;
+        border-bottom: 2px solid #f0e6ef !important;
+    }
+
+    /* עיצוב ה-Paginator לסגול */
+    .p-paginator {
+        .p-paginator-pages .p-paginator-page.p-highlight {
+            background: var(--primary-color) !important;
+            color: white !important;
+        }
+    }
+}

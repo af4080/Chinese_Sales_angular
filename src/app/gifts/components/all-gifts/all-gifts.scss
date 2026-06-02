@@ -1,0 +1,60 @@
+$purple: #712059;
+$gold: #D4AF37;
+
+.all-gifts-wrapper {
+    background-color: #fdfaf5; // רקע שמנת עדין
+    min-height: 100vh;
+}
+
+.main-content-container {
+    max-width: 1400px; // מונע מהמתנות להימרח במסכים ענקיים
+}
+
+// עיצוב הקטגוריות (במקום הכפתורים הרגילים)
+.category-chip {
+    background: white;
+    border: 2px solid $purple;
+    color: $purple;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+
+    &:hover {
+        background: rgba($purple, 0.05);
+        transform: translateY(-2px);
+    }
+
+    &.active {
+        background: $purple;
+        color: white;
+        box-shadow: 0 4px 12px rgba($purple, 0.3);
+    }
+}
+
+// דריסת הצבע הירוק של PrimeNG (למקרה שיש אלמנטים גלובליים)
+::ng-deep {
+    .p-button {
+        background-color: $purple !important;
+        border-color: $purple !important;
+        
+        &:hover {
+            background-color: darken($purple, 10%) !important;
+        }
+
+        &.p-button-outlined {
+            background: transparent !important;
+            color: $purple !important;
+            border-color: $purple !important;
+            
+            &:hover {
+                background: rgba($purple, 0.05) !important;
+            }
+        }
+    }
+}

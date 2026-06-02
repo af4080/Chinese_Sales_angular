@@ -1,0 +1,52 @@
+.gold-bg-section {
+    background: var(--gold-gradient);
+    background-size: 200% 200%;
+    animation: goldFlow 5s ease infinite;
+}
+
+@keyframes goldFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.main-lottery-card {
+    border-radius: 30px !important;
+    background: white;
+}
+
+.lottery-btn-massive {
+    background: var(--primary-color) !important;
+    border: none !important;
+    padding: 1.5rem 3rem !important;
+    font-size: 1.5rem !important;
+    border-radius: 50px !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    
+    &:hover:not(:disabled) {
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 15px 30px rgba(113, 32, 89, 0.3) !important;
+    }
+}
+
+.bounce-animation {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.text-gold { color: var(--accent-color); }
+.border-gold { border-color: var(--accent-color) !important; }
+
+.gold-link {
+    color: var(--accent-hover) !important;
+    &:hover { text-decoration: underline !important; }
+}
+
+.winner-item-card {
+    transition: all 0.3s ease;
+    &:hover { background: #fffcf0; transform: scale(1.02); }
+}

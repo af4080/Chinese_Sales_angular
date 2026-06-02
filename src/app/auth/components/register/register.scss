@@ -1,0 +1,104 @@
+/* צבע הסגול מהתמונה */
+$ze-purple: #7e2a52; 
+$ze-gold: #d48d5e; /* הזהב-כתום מהלוגו */
+
+.ze-ze-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #ffffff;
+    direction: rtl;
+}
+
+.ze-ze-header {
+    text-align: center;
+    margin-bottom: 30px;
+
+    .logo-placeholder {
+        font-size: 3rem;
+        font-weight: bold;
+        color: $ze-purple;
+        letter-spacing: -2px;
+        /* כאן אפשר להוסיף את הפונט המעוגל של הלוגו */
+    }
+
+    .main-title {
+        font-size: 1.8rem;
+        color: #333;
+        margin-top: 10px;
+    }
+
+    .gold-line {
+        height: 5px;
+        width: 80px;
+        background-color: $ze-gold;
+        margin: 10px auto;
+        border-radius: 10px;
+    }
+}
+
+.ze-ze-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-top: 5px solid $ze-purple;
+}
+
+.ze-ze-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+        font-weight: bold;
+        color: $ze-purple;
+        font-size: 0.9rem;
+    }
+
+    input {
+        width: 100%;
+        border-radius: 6px !important;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+}
+
+/* עיצוב כפתור Submit כמו בתמונה */
+::ng-deep .p-button.ze-ze-submit {
+    background-color: $ze-purple !important;
+    border: none !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    span {
+        color: white;
+        font-weight: bold;
+        width: 100%;
+    }
+}
+
+::ng-deep {
+    .p-password, .p-password input, .p-inputmask {
+        width: 100% !important;
+    }
+    
+    .p-message {
+        margin-top: 4px;
+    }
+}

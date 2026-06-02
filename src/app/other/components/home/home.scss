@@ -1,0 +1,110 @@
+.home-container {
+    height: calc(100vh - 110px); // גובה המסך פחות גובה התפריט
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(113, 32, 89, 0.85), rgba(113, 32, 89, 0.95)), 
+                url('/assets/images/background-pattern.jpg') center/cover;
+    text-align: center;
+    color: white;
+}
+
+.content-wrapper {
+    z-index: 2;
+    padding: 2rem;
+    max-width: 800px;
+}
+
+.main-title {
+    font-size: 5rem;
+    font-weight: 900;
+    margin: 0;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInDown 1s ease-out;
+}
+
+.sub-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-top: -10px;
+    letter-spacing: 5px;
+}
+
+.gold-divider {
+    width: 150px;
+    height: 4px;
+    background: var(--accent-color);
+    margin: 2rem auto;
+    border-radius: 2px;
+}
+
+.description {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+// כפתור אטרקטיבי במיוחד
+.cta-button {
+    background: var(--gold-gradient) !important;
+    border: none;
+    padding: 1.5rem 4rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    transition: all 0.3s ease;
+    
+    .btn-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    &:hover {
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+    }
+}
+
+// אנימציות
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+// אלמנטים צפים ברקע
+.float-item {
+    position: absolute;
+    opacity: 0.15;
+    font-size: 4rem;
+    color: var(--accent-color);
+    animation: float 6s infinite ease-in-out;
+}
+
+.icon-1 { top: 20%; left: 10%; animation-delay: 0s; }
+.icon-2 { bottom: 15%; right: 15%; animation-delay: 2s; }
+.icon-3 { top: 40%; right: 5%; animation-delay: 4s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
